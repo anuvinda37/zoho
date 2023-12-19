@@ -1778,7 +1778,7 @@ def retainer_delete(request,pk):
             
 def allestimates(request):
     user = request.user
-    estimates = Estimates.objects.filter(user=user).order_by('-id')
+    estimates = Estimates.objects.filter(user=user).order_by('estimate_no')
     
     
     company = company_details.objects.get(user=user)
@@ -1938,6 +1938,8 @@ def create_and_send_estimate(request):
     user = User.objects.get(id=cur_user.id)
     cmp=company_details.objects.get(user=user.id)
     cmp1=cmp.id
+    cmp_instance = company_details.objects.get(id=cmp1)  # Retrieve the instance using the ID
+
     print("hello")
     if request.method == 'POST':
         x=request.POST["hidden_state"]
@@ -2005,7 +2007,7 @@ def create_and_send_estimate(request):
         estimate = Estimates(user=user,customer=customer_id1,customer_name=cust_name,customer_mailid=customer_mailid,customer_placesupply=customer_placesupply,estimate_no=est_number, reference=reference, estimate_date=est_date, 
                              expiry_date=exp_date, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, shipping_charge=shipping,
                              adjustment=adjustment, total=total, status=status, customer_notes=cust_note, terms_conditions=tearms_conditions, 
-                             attachment=attachment,convert_invoice=convert_invoice,convert_sales=convert_sales,convert_recinvoice=convert_recinvoice,balance=balance,company=cmp1)
+                             attachment=attachment,convert_invoice=convert_invoice,convert_sales=convert_sales,convert_recinvoice=convert_recinvoice,balance=balance,company=cmp_instance)
         estimate.save()
 
         if x == y:

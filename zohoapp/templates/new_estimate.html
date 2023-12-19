@@ -24,6 +24,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" integrity="sha512-0nkKORjFgcyxv3HbE4rzFUlENUMNqic/EzDIeYCgsKa/nwqr2B91Vu/tNAu4Q0cBuG4Xe/D1f/freEci/7GDRA=="
      crossorigin="anonymous" referrerpolicy="no-referrer" />
+     
 
 <style>
 
@@ -489,7 +490,7 @@ function calc() {
                             <thead>
                                 <tr>
                                   <th class="text-right" style="font-weight: bold;color: rgb(245, 154, 36);">#</th>
-                                  <th class="p-3" style="font-weight: bold;color: rgb(245, 154, 36);" >Item  <a href="" data-toggle="modal" data-target="#newitem"><i class="fas fa-plus p-2 rounded"
+                                  <th class="p-3" style="font-weight: bold;color: rgb(245, 154, 36);" >Item  <a href="{% url 'additem' %}" ><i class="fas fa-plus p-2 rounded"
                                                 style="color: white; background-color: rgb(210, 132, 30);"></i></a></th>
                                    <th class="text-right" style="font-weight: bold;color: rgb(245, 154, 36);">Hsn</th>
                                     <th class="text-right" style="font-weight: bold;color: rgb(245, 154, 36);">Quantity</th>
@@ -2678,12 +2679,15 @@ $(document).ready(function() {
               $('#cus_place_second').val(data.cust_place_supply);
               $('#customer_gst_treat').val(data.gst_treatment);
               $('#customer_gstno').val(data.gstin);
-               var adrs=data.address;
+               var adrs=data.cust_address;
               if( adrs != "" )
               {
-                document.getElementById('customer_address').value = data.address + '\n' + data.city + '\n' + data.pincode +'\n' + data.cus_state+'\n'+data.country ;
+                document.getElementById('customer_address').value = value = adrs;
                 $("#cus_billing_address").removeClass('d-none');
                 $("#cus_billing_address").addClass('d-flex');
+              } else {
+                $("#cus_billing_address").removeClass('d-flex');
+                $("#cus_billing_address").addClass('d-none');
               }
 
               var GSTNO=document.getElementById('customer_gstno').value;
