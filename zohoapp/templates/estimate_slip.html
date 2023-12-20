@@ -54,6 +54,49 @@
     #tr_data:hover{
     background-color: #757575;
   }
+  /* Styles remain unchanged */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 80px;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown button {
+      background-color: rgb(235, 230, 230);
+      color: black;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .dropdown button i {
+      margin-right: 5px;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 8px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 14px;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
 </style>
 
 
@@ -226,8 +269,18 @@ $(function() {
                 <div class="col-md-4 text-light" style="font-size: 2.3rem;">
                     {{estimate.estimate_no }} <br>
                     <button class="btn  text-white " onclick="overview_function()"  style="background-color: chocolate;" title="Overview"><i class="fa fa-eye">Overview</i></button>
-                    <button class="btn  text-black " onclick="template_function()" style="background-color: rgb(235, 230, 230);"  title="Template"><i class="fa fa-file-word">Templates </i></button>
-                    <!-- <button class="btn btn-outline-warning text-warning" id="toggleTemplate4" onclick="showslip_function(),toggleTemplate('estimate_slip','estimate_slip')"  title="Slip"><i class="fas fa-receipt"></i></button> -->
+                    <div class="dropdown">
+                        <button class="btn text-black" onclick="template_function()" style="background-color: rgb(235, 230, 230);" title="Template">
+                          <i class="fa fa-file-word">Templates </i>
+                        </button>
+                        
+                        <div class="dropdown-content">
+                          <!-- Update href attributes to the desired URLs -->
+                          <a href="#" onclick="template_function()">Template 1</a>
+                          <a href="#" onclick="toggleTemplate('whatToPrint2', 'toggleTemplate2')">Template 2</a>
+                          <a href="#" onclick="toggleTemplate('whatToPrint3','toggleTemplate3')">Template 3</a>
+                        </div>
+                      </div>
                     
                 </div>
                 <div class="col-md-8 text-white text-right my-auto" style="text-align: end;"><br><br>
@@ -320,7 +373,7 @@ $(function() {
                      ms-1" title="save this draft" ><i class="fas fa-save"></i></a>
                     {% endif %}
 
-                        <div class="dropdown  ms-1" title="Attach" >
+                        {% comment %} <div class="dropdown  ms-1" title="Attach" >
                             <a href=" " class="btn btn-sm btn-outline-warning p-2 fa fa-paperclip dropdown-toggle  btn-sm text-warning ms-1"  
                                 data-bs-toggle="dropdown" id="attachmentDropdown" aria-haspopup="true" aria-expanded="false"> 
                             </a>
@@ -335,7 +388,7 @@ $(function() {
                                 {%endif%}
                                         
                             </div>
-                        </div>
+                        </div> {% endcomment %}
 
                         
 

@@ -330,7 +330,7 @@ function calc() {
                     <div class="col-sm-2"><label for="customer_name">Customer Name*</label></div>
                     <div class="col-sm-6 d-flex ">
                         <!-- <div class="search_select_box"> -->
-                          <select  class="form-control text-dark ch"  id="customer_sel" name="customer_name" >
+                          <select  class="form-control text-dark ch chosen-select"  id="customer_sel" name="customer_name"  data-placeholder="Search customer..." >
                             <option>Select Customer</option>
                             {% for cust in customers %}
                             <option value="{{cust.id}} {{cust.customerName}}" data-pos="{{cust.placeofsupply}}">
