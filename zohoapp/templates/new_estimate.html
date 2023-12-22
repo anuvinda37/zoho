@@ -68,6 +68,57 @@
       z-index: 9999;
       overflow: scroll;
     }
+    .dropbtn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .dropbtn:hover, .dropbtn:focus {
+      background-color: #3e8e41;
+    }
+    
+    #myInput {
+      box-sizing: border-box;
+      background-image: url('searchicon.png');
+      background-position: 14px 12px;
+      background-repeat: no-repeat;
+      font-size: 16px;
+      padding: 14px 20px 12px 45px;
+      border: none;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    #myInput:focus {outline: 3px solid #ddd;}
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f6f6f6;
+      min-width: 230px;
+      overflow: auto;
+      border: 1px solid #ddd;
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown a:hover {background-color: #ddd;}
+    
+    .show {display: block;}
 </style>
 
 <script>
@@ -330,15 +381,26 @@ function calc() {
                     <div class="col-sm-2"><label for="customer_name">Customer Name*</label></div>
                     <div class="col-sm-6 d-flex ">
                         <!-- <div class="search_select_box"> -->
-                          <select  class="form-control text-dark ch chosen-select"  id="customer_sel" name="customer_name"  data-placeholder="Search customer..." >
+                          {% comment %} <select  class="form-control text-dark ch chosen-select"  id="customer_sel" name="customer_name" >
                             <option>Select Customer</option>
                             {% for cust in customers %}
                             <option value="{{cust.id}} {{cust.customerName}}" data-pos="{{cust.placeofsupply}}">
                                 {{cust.customerName}}</option>
                             {% endfor %}
-                        </select>
+                        </select> {% endcomment %}
                         
+                         <div class="dropdown">
+                          <button onclick="toggleDropdown(event)" class="dropbtn">Select Customer</button>
 
+                          <div id="customerDropdown" class="dropdown-content">
+                              <input type="text" placeholder="Search.." id="customerSearch" onkeyup="filterCustomers()">
+                              {% for cust in customers %}
+                                  <a href="#" data-id="{{ cust.id }}" data-name="{{ cust.customerName }}" data-pos="{{ cust.placeofsupply }}" onclick="selectCustomer(this)">
+                                      {{ cust.customerName }}
+                                  </a>
+                              {% endfor %}
+                          </div>
+                      </div>  
                         
                         <!-- </div> -->
                         <a  href="" data-toggle="modal" data-target="#newcustomer" class="btn" style="background-color: chocolate; color: black; height: 80%; margin-left: 2vh; font-size: large; padding-top: 1vh;">+</a>
@@ -2644,8 +2706,8 @@ $.ajax({
 
 
 $(document).ready(function() {
-    $('#customer_sel').change(function() {
-        var name = $("#customer_sel").val();
+    $('#customerSearch').change(function() {
+        var name = $("#customerSearch").val();
         var na = name.split(' ')[0];
         var table = document.getElementById("item_table");
         $.ajax({
@@ -4565,8 +4627,51 @@ document.getElementById('hsnn16').value = data4
     $('.search_select_box select').selectpicker();
   });
 </script>
-
+<script>
+  $(document).ready(function(){
+      // Initialize Chosen for the customer dropdown
+      $('.chosen-select').chosen();
+  });
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script>
+  function toggleDropdown(event) {
+    event.preventDefault();
+    var dropdownContent = document.getElementById("customerDropdown");
+    dropdownContent.classList.toggle("show");
+}
 
+  
+  function filterCustomers() {
+      var input, filter, div, a, i;
+      input = document.getElementById("customerSearch");
+      filter = input.value.toUpperCase();
+      div = document.getElementById("customerDropdown");
+      a = div.getElementsByTagName("a");
+  
+      for (i = 0; i < a.length; i++) {
+          var customerName = a[i].getAttribute("data-name");
+          if (customerName.toUpperCase().indexOf(filter) > -1) {
+              a[i].style.display = "";
+          } else {
+              a[i].style.display = "none";
+          }
+      }
+  }
+  
+  function selectCustomer(element) {
+      var customerId = element.getAttribute("data-id");
+      var customerName = element.getAttribute("data-name");
+      var placeOfSupply = element.getAttribute("data-pos");
+      console.log(customerId)
+      console.log(customerName)
+      // You can use the selected values as needed (e.g., update another input field)
+      document.getElementById("customer_sel").value = customerId;
+      // Optionally, update other fields with customer information
+      document.getElementById("cus_place1").value = placeOfSupply;
+      // Close the dropdown after selection
+      document.getElementById("customerDropdown").classList.remove("show");
+  }
+  </script> 
 
 {% endblock %}
