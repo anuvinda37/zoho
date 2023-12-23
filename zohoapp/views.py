@@ -1221,7 +1221,34 @@ def retainer_invoice(request):
     context={'invoices':invoices,'company':company}
     return render(request,'retainer_invoice.html',context)
 
+def import_retainer_invoices(request):
+    if request.method == 'POST' and request.FILES.get('file'):
+        uploaded_file = request.FILES['file']
 
+        try:
+            # Load the Excel workbook
+            workbook = load_workbook(uploaded_file, read_only=True)
+            sheet = workbook.active
+
+            # Process each row in the sheet
+            for row in sheet.iter_rows(min_row=2, values_only=True):
+                # Assuming the structure of your Excel sheet matches the RetainerInvoice model
+                RetainerInvoice.objects.create(
+                    retainer_invoice_date=row[0],
+                    retainer_invoice_number=row[1],
+                    customer_name1=row[2],
+                    customer_mailid=row[3],
+                    total_amount=row[4],
+                    is_sent=row[5] == 'Send',  # Assuming 'Send' or 'Draft'
+                    balance=row[6],
+                    # Add other fields as needed
+                )
+
+            return JsonResponse({'message': 'Import successful'})
+        except Exception as e:
+            return JsonResponse({'message': f'Error during import: {str(e)}'}, status=500)
+
+    return JsonResponse({'message': 'Invalid request'}, status=400)
 @login_required(login_url='login')
 def add_invoice(request):
     company=company_details.objects.get(user_id=request.user)

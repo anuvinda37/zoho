@@ -43,6 +43,7 @@ urlpatterns = [
     path('delete_vendor/<int:pk>',views.delete_vendor,name='delete_vendor'),
     path('add_customer/',views.add_customer,name='add_customer'),
     path('retainer_invoices/',views.retainer_invoice,name='retainer_invoice'),
+    path('import_retainer_invoices/',views.import_retainer_invoices, name='import_retainer_invoices'),
     path('add_invoice/',views.add_invoice,name='add_invoice'),
     path('create_invoice_draft/',views.create_invoice_draft,name='create_invoice_draft'),
     path('create_invoice_send/',views.create_invoice_send,name='create_invoice_send'),
