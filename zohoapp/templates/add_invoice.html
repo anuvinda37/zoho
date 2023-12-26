@@ -281,8 +281,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr id="row1">
-                <td></td>
+              <tr class="item-row" id="row1">
+                <td class="index-number"></td>
                 <td>
                   <select class='form-control border-0 bg-transparent text-white item_select itm' name='item[]'
                     id='item1' onchange="itemfunction(this.id)">
@@ -2327,7 +2327,33 @@
   }
 
 </script>
+<script>
+  // Counter variable to track the number of item rows
+  var itemCounter = 1;
 
+  // Function to update index numbers for item rows
+  function updateIndexNumbers() {
+      $(".item-row").each(function (index) {
+          $(this).find(".index-number").text(index + 1);
+      });
+  }
+
+  // Function to add a new line with a unique index number
+  $("#add-another-line").click(function () {
+      itemCounter++;
+      var newRow = $("#row1").clone();
+      newRow.attr("id", "row" + itemCounter);
+      newRow.find(".index-number").text(itemCounter);
+      // Clear input values in the new row (if needed)
+      newRow.find("input").val("");
+      // Append the new row to the table
+      $("#retainer-table tbody").append(newRow);
+       hg
+  });
+
+  // Call the function to update index numbers initially
+  updateIndexNumbers();
+</script>
 
 
 
