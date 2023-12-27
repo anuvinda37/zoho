@@ -1239,7 +1239,7 @@ def import_retainer_invoices(request):
                     customer_name1=row[2],
                     customer_mailid=row[3],
                     total_amount=row[4],
-                    is_sent=row[5] == 'Send',  # Assuming 'Send' or 'Draft'
+                    is_sent=row[5] == 'Sent',  # Assuming 'Send' or 'Draft'
                     balance=row[6],
                     # Add other fields as needed
                 )

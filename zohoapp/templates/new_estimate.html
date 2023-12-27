@@ -381,15 +381,42 @@ function calc() {
                     <div class="col-sm-2"><label for="customer_name">Customer Name*</label></div>
                     <div class="col-sm-6 d-flex ">
                         <!-- <div class="search_select_box"> -->
-                          {% comment %} <select  class="form-control text-dark ch chosen-select"  id="customer_sel" name="customer_name" >
+                          <select  class="form-control text-dark ch chosen-select"  id="customer_sel" name="customer_name" >
                             <option>Select Customer</option>
                             {% for cust in customers %}
                             <option value="{{cust.id}} {{cust.customerName}}" data-pos="{{cust.placeofsupply}}">
                                 {{cust.customerName}}</option>
                             {% endfor %}
-                        </select> {% endcomment %}
+                        </select>
                         
-                         <div class="dropdown">
+
+                        <input type="text" id="searchInput" placeholder="Search..."
+                        class="dropdown-toggle form-control " autocomplete="off" data-toggle="dropdown"
+                        onselect="itemfunction()">
+                    <input type="text" name="customerid" id="customerid" style="display: none;">
+                    <div class="dropdown-menu"
+                        style="background-color: #000; width: 80%;border-radius: 4px;">
+                        {% for cust in customers %}
+                        <option class="dropdown-item" id="d-item" value="{{cust.customerid}}">
+                            {{cust.firstname }} {{ cust.lastname }}</option>
+                        {% endfor %}
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                         {% comment %} <div class="dropdown">
                           <button onclick="toggleDropdown(event)" class="dropbtn">Select Customer</button>
 
                           <div id="customerDropdown" class="dropdown-content">
@@ -400,7 +427,7 @@ function calc() {
                                   </a>
                               {% endfor %}
                           </div>
-                      </div>  
+                      </div>   {% endcomment %}
                         
                         <!-- </div> -->
                         <a  href="" data-toggle="modal" data-target="#newcustomer" class="btn" style="background-color: chocolate; color: black; height: 80%; margin-left: 2vh; font-size: large; padding-top: 1vh;">+</a>
@@ -2706,8 +2733,8 @@ $.ajax({
 
 
 $(document).ready(function() {
-    $('#customerSearch').change(function() {
-        var name = $("#customerSearch").val();
+    $('#customer_sel').change(function() {
+        var name = $("#customer_sel").val();
         var na = name.split(' ')[0];
         var table = document.getElementById("item_table");
         $.ajax({
