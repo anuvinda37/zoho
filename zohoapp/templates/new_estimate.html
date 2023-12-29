@@ -541,7 +541,8 @@ function calc() {
                                                 name='item[]' id='item1'>
                                                 <option class='text-dark'>Select</option>
                                                 {% for i in items %}
-                                                <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
+                                                <option class="text-dark" value="{{i.Name}}" data-hsn="{{i.HSN}}" data-rate="{{i.Rate}}">{{i.Name}}</option>
+
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -618,7 +619,7 @@ function calc() {
       
     });
   });
-</script> -->
+</script>  -->
                   
 <div class="row " id="tab_row2" >
     <div class="col-sm-12 col-lg-12 col-md-12" >
