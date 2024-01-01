@@ -188,7 +188,7 @@ function calc() {
         var x=document.getElementById("cus_place").value
         var y=document.getElementById("state").value
         if ( x == y )
-        {
+        { vb
         total = 0;
         $('.amount').each(function () {
             total += parseFloat($(this).val()) ;
@@ -2150,12 +2150,12 @@ function calc() {
            if(parseInt(ref_no) == parseInt(sliced_string))
            {
                document.getElementById('credit_span').style.color="green";
-               document.getElementById('credit_span').innerHTML="consicutive number";
+               document.getElementById('credit_span').innerHTML="consecutive number";
 
            }
            else{
                document.getElementById('credit_span').style.color="red";
-               document.getElementById('credit_span').innerHTML="not consicutive number";
+               document.getElementById('credit_span').innerHTML="not consecutive number";
            }
        }
    </script>
