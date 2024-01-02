@@ -188,7 +188,7 @@ function calc() {
         var x=document.getElementById("cus_place").value
         var y=document.getElementById("state").value
         if ( x == y )
-        { vb
+        { 
         total = 0;
         $('.amount').each(function () {
             total += parseFloat($(this).val()) ;
@@ -610,16 +610,16 @@ function calc() {
 <!-- ..................................................   END TABLE1   .......................................................... -->
 
 <!-- ...................................................  TABLE 2  ..................................................... -->
-<!-- <script>
+<script>
   $(document).ready(function () {
     // Initialize Selectize on the item dropdown
-    $('#item1').selectize({
+    $('#itemm1').selectize({
       
       sortField: ' value', // Sort the items by their text content
       
     });
   });
-</script>  -->
+</script> 
                   
 <div class="row " id="tab_row2" >
     <div class="col-sm-12 col-lg-12 col-md-12" >
@@ -2659,7 +2659,7 @@ $.ajax({
     var dropdown = $('#customer_sel');
   +   dropdown.empty();
     $.each(data, function(key, value) {
-        // dropdown.append($('<option></option>').attr('value', key).text(value[1]).val(value[0] + ' ' + value[1]));
+        
         dropdown.append($('<option></option>').attr('value', key).text(value[1]).val(key));
     });
   },
@@ -3088,6 +3088,7 @@ function reloadUnit() {
           customer = $('#customer_sel').val();
           console.log(select);
           console.log(customer);
+          console.log('#item1');
           $.ajax({
               type: "GET",
               url: "{% url 'itemdata_challan' %}",
@@ -4588,11 +4589,88 @@ document.getElementById('hsnn16').value = data4
     });
 </script>
 
-<script>
-  
- 
-</script>
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Function to update tax options based on place of supply
+    function updateTaxOptions() {
+      var customerSelect = document.getElementById('customer_sel');
+      var selectedCustomer = customerSelect.options[customerSelect.selectedIndex];
+      var placeOfSupply = selectedCustomer.getAttribute('data-pos');
+
+      // Assume your tax select element has an ID of 'tax'
+      var taxSelect = document.getElementById('tax');
+
+      // Clear existing options
+      taxSelect.innerHTML = '';
+
+      // Add new options based on place of supply
+      if (placeOfSupply === 'Kerala') {
+        taxSelect.options.add(new Option('GST0[0%]', 0));
+        taxSelect.options.add(new Option('GST3[3%]', 3));
+        taxSelect.options.add(new Option('GST5[5%]', 5));
+        taxSelect.options.add(new Option('GST12[12%]', 12));
+        taxSelect.options.add(new Option('GST18[18%]', 18));
+        taxSelect.options.add(new Option('GST28[28%]', 28));
+        // Add other intra-state tax options as needed
+      } else {
+        taxSelect.options.add(new Option('IGST0[0%]', 0));
+        taxSelect.options.add(new Option('IGST3[3%]', 3));
+        taxSelect.options.add(new Option('IGST5[5%]', 5));
+        taxSelect.options.add(new Option('IGST12[12%]', 12));
+        taxSelect.options.add(new Option('IGST18[18%]]', 18));
+        taxSelect.options.add(new Option('IGST28[28%]', 28));
+        // Add other inter-state tax options as needed
+      }
+    }
+
+    // Attach the updateTaxOptions function to the change event of the customer select
+    document.getElementById('customer_sel').addEventListener('change', updateTaxOptions);
+
+    // Initial update when the page loads
+    updateTaxOptions();
+  });
+</script> -->
+
 
 
 
 {% endblock %}
+
+
+
+
+
+
+<!-- (document).ready(function () {
+  $("#commentSave").click(function () {
+
+      $.ajax({
+
+          type: 'POST',
+          url: "{% url 'recurbill_comment' %}",
+
+          data: {
+              id: $("#com_id").val(),
+              comment: $("#comment").val(),
+
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+
+          },
+
+          success: function (response) {
+              document.getElementById("modalComment").reset();
+Nithya Vijayan1:20 PM
+ef recurbill_comment(request):
+
+company = company_details.objects.get(user = request.user)
+
+if request.method=='POST':
+  id =request.POST.get('id')
+  cmnt =request.POST.get('comment')
+  
+  u = User.objects.get(id = request.user.id)
+  r_bill = recurring_bills.objects.get(user = request.user, id = id)
+  r_bill.comments = cmnt
+  r_bill.save()
+
+  return HttpResponse({"message": "success"}) -->
