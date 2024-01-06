@@ -605,7 +605,16 @@ function calc() {
                 </div>
 
 
-
+<script>
+  $(document).ready(function () {
+    // Initialize Selectize on the item dropdown
+    $('#item1').selectize({
+      
+      sortField: ' value', // Sort the items by their text content
+      
+    });
+  });
+</script>
                 
 <!-- ..................................................   END TABLE1   .......................................................... -->
 
