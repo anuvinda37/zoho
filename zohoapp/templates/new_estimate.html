@@ -51,7 +51,7 @@
    
     /* Style the wrapper container */
     .selectize-control {
-      width: 500px; /* Set the desired width */
+      width: 100px; /* Set the desired width */
       margin-bottom: 20px;
     }
 
@@ -572,7 +572,7 @@ function calc() {
                                             <option value=0 class="opt1 text-dark">0% GST</option>
                                             <option value=3 class="opt1 text-dark">3% GST</option>
                                             <option value=5 class="opt1 text-dark">5% GST</option>
-                                            <option value=12 class="opt1 text-dark">12% GST</option>
+                                            <option value=12 class="opt1 text-dark" disabled>12% GST</option>
                                             <option value=18 class="opt1 text-dark">18% GST</option>
                                             <option value=28 class="opt1 text-dark">28% GST</option>  
                                         </select>
@@ -605,17 +605,7 @@ function calc() {
                 </div>
 
 
-<script>
-  $(document).ready(function () {
-    // Initialize Selectize on the item dropdown
-    $('#item1').selectize({
-      
-      sortField: ' value', // Sort the items by their text content
-      
-    });
-  });
-</script>
-                
+     
 <!-- ..................................................   END TABLE1   .......................................................... -->
 
 <!-- ...................................................  TABLE 2  ..................................................... -->
@@ -623,8 +613,8 @@ function calc() {
   $(document).ready(function () {
     // Initialize Selectize on the item dropdown
     $('#itemm1').selectize({
-      
-      sortField: ' value', // Sort the items by their text content
+    
+      sortField: 'value', // Sort the items by their text content
       
     });
   });
@@ -3085,14 +3075,25 @@ function reloadUnit() {
 
 
 </script>
+<script>
+  $(document).ready(function () {
+    // Initialize Selectize on the item dropdown
+    $('#item1').selectize({
+      
+      sortField: 'value', // Sort the items by their text content
+      
+    })
 
+  });
+</script>
+           
 
 <script>
   $(document).ready(function () {
       var roinc = 0
       console.log("ajax");
       // var place = document.getElementById('pos').value;
-      $(document).on('click', '#item1', function () {
+      $(document).on('change', '#item1', function () {
           select = $('#item1').val();
           customer = $('#customer_sel').val();
           console.log(select);
@@ -3118,7 +3119,17 @@ function reloadUnit() {
                   document.getElementById('hsn1').value = data4
                   console.log("helloooooooooooooooooooooooooo");
 
-                  console.log(data4);
+                  console.log(data1,'hello');
+                  console.log(data2,'hello2');
+                  var taxselect=document.getElementById('tax')
+                  var newoption=document.createElement('option')
+                  newoption.text=data1
+                  newoption.value=data1
+                  newoption.selected=true
+                  for(var i=0; i<taxselect.options.length;i++){
+                    taxselect.options[i].disabled=true
+                  }
+                  taxselect.add(newoption)
                   if (data3 == '{{ company.state }}') {
                       document.getElementById('tgst1').innerHTML = data1 + ' % GST';
                       document.getElementById('tgst1').value = data1
@@ -3862,7 +3873,7 @@ function reloadUnit() {
         var roinc = 0
         console.log("ajax");
         // var place = document.getElementById('pos').value;
-        $(document).on('click', '#itemm1', function () {
+        $(document).on('change', '#itemm1', function () {
             select = $('#itemm1').val();
             customer = $('#customer_sel').val();
             console.log(select);
@@ -3883,6 +3894,7 @@ function reloadUnit() {
                     data4=response.hsn
 
                     document.getElementById('ratee1').value = data
+                    console.log('hello world',data);
                     document.getElementById('hsnn1').value = data4
 
                     if (data3 == '{{ company.state }}') {

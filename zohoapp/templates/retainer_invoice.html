@@ -123,8 +123,8 @@
 <!-- ................................... import modal ................. -->
 <!-- Add this modal at the end of your retainer_invoices.html -->
 
-<div class="modal fade" id="import_modal" tabindex="-1" role="dialog" aria-labelledby="import_modal_label"
-  aria-hidden="true">
+<div class="modal fade" id="import_modal"  role="dialog" 
+  >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -148,7 +148,8 @@
     </div>
   </div>
 </div>
-
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 <script>
   document.getElementById("exportBtn").addEventListener("click", function () {
   const Table = document.getElementById("myTable");
@@ -230,8 +231,7 @@
   integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+ 
   
 
         

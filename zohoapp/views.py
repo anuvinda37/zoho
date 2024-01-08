@@ -5340,9 +5340,11 @@ def itemdata_challan(request):
             name = item.Name
             rate = item.s_price
             hsn = item.hsn
+            gst=item.intrastate
+            igst=item.interstate
             # Assuming `company_name` is a field in the `company_details` model
             place = company_details.objects.get(user=cur_user).company_name
-            return JsonResponse({"status": "not", 'place': place, 'rate': rate, 'hsn': hsn})
+            return JsonResponse({"status": "not", 'place': place, 'rate': rate, 'hsn': hsn,'gst':gst,'igst':igst})
         except AddItem.DoesNotExist:
             return JsonResponse({"status": "error", 'message': "Item not found"})
     except Exception as e:
