@@ -13,7 +13,7 @@
      <style>
 
   
-  .custom-select {}
+  .custom-select {
     height: auto; /* Set the desired height */
 }
 
@@ -3130,7 +3130,15 @@ function reloadUnit() {
                     taxselect.options[i].disabled=true
                   }
                   taxselect.add(newoption)
-                  
+
+                  newoption.text=data2
+                  newoption.value=data2
+                  newoption.selected=true
+                  for(var i=0; i<taxselect.options.length;i++){
+                    taxselect.options[i].disabled=true
+                  }
+                  taxselect.add(newoption)
+
                   if (data3 == '{{ company.state }}') {
                       document.getElementById('tgst1').innerHTML = data1 + ' % GST';
                       document.getElementById('tgst1').value = data1
@@ -4663,7 +4671,7 @@ document.getElementById('hsnn16').value = data4
 
 
 
-<!-- (document).ready(function () {
+(document).ready(function () {
   $("#commentSave").click(function () {
 
       $.ajax({
@@ -4695,4 +4703,4 @@ if request.method=='POST':
   r_bill.comments = cmnt
   r_bill.save()
 
-  return HttpResponse({"message": "success"}) -->
+  return HttpResponse({"message": "success"})
