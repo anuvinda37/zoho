@@ -4666,35 +4666,7 @@ document.getElementById('hsnn16').value = data4
 
 {% endblock %}
 
-last_record = SalesOrder.objects.filter(user=request.user.id).last()
-    bank = Bankcreation.objects.filter(user=user)
-    last_reference = salesOrderReference.objects.filter(user=request.user.id).last()
 
-    if last_record ==None:
-        reference = '01'
-        remaining_characters=''
-    else:
-        lastSalesNo = last_record.sales_no
-        last_two_numbers = int(lastSalesNo[-2:])+1
-        remaining_characters = lastSalesNo[:-2] 
-        if remaining_characters == '':
-            if last_two_numbers < 10:
-                reference = '0'+str(last_two_numbers)
-            else:
-                reference = str(last_two_numbers)
-        else: 
-            if last_two_numbers < 10:
-                reference = remaining_characters+'0'+str(last_two_numbers)
-            else:
-                reference = remaining_characters+str(last_two_numbers)
-            
-    if last_reference==None:
-        reford = '01'
-    else:
-        if last_reference.reference+1 < 10:
-            reford = '0'+ str(last_reference.reference+1)
-        else:
-            reford = str(last_reference.reference+1)
 
 
 
