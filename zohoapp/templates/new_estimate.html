@@ -117,6 +117,78 @@
   border-radius: 4px;
   padding: 2px 6px;
 }
+
+
+#itemm1 + .selectize-control {
+  width: 80px; 
+}
+
+
+#itemm1 + .selectize-control .selectize-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  height: 50px;
+}
+
+
+#itemm1 + .selectize-control .selectize-dropdown {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+#itemm1 + .selectize-control .selectize-dropdown-content .option {
+  padding: 8px;
+  cursor: pointer;
+}
+
+
+#itemm1 + .selectize-control.multi .item {
+  background-color: #e0e0e0;
+  margin-right: 5px;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+
+#item2 + .selectize-control {
+  width: 80px; 
+}
+
+
+#item2 + .selectize-control .selectize-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  height: 50px;
+}
+
+
+#item2 + .selectize-control .selectize-dropdown {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+#item2 + .selectize-control .selectize-dropdown-content .option {
+  padding: 8px;
+  cursor: pointer;
+}
+
+
+#item2 + .selectize-control.multi .item {
+  background-color: #e0e0e0;
+  margin-right: 5px;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+.modal{
+      z-index: 9999;
+      overflow: scroll;
+    }
 </style>
 
 <script>
@@ -474,8 +546,9 @@ function calc() {
                   <div class="col-sm-2"><label for="estimate_number">Estimate#*</label></div>
                   <div class="col-sm-6">
                     <label for="" style="color: rgb(196, 161, 8);" id="credit_span">( Estimate number format {{est_no}} )</label>
-                    <input type="text" id="estimate_number" onchange="check_estimate_number()" name="estimate_number" class="form-control text-dark">
-                  
+                    <input type="text" id="estimate_number" onchange="check_estimate_number()" name="estimate_number" class="form-control text-dark" placeholder="{{next_estimate_number}}">
+                    <input type="text" id="est_last" value="{{est_last}}" hidden>
+                    <span id="estimate-error-message"></span>
                   </div>
               </div>
 
@@ -556,6 +629,7 @@ function calc() {
                                             class='form-control bg-transparent border-0 text-light text-right qty' name='quantity[]'
                                             value='0'>
                                     </td>
+                                    
                                     <td class='text-right' style="width: 15%;"><input type='number' id='rate1'
                                             class='form-control bg-transparent border-0 text-light text-right rate' name='rate[]'
                                             value='0.00'>
@@ -594,7 +668,12 @@ function calc() {
                                               </td>
                                 </tr>
                             </tbody>
-        
+                            <!-- <th>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Available Stock: <span id="available-stock">{{ stock }}</span></th> -->
                         </table>
                         <button type="button" class="btn btn-sm text-white tab1" style="background-color: rgb(210, 132, 30) ;"
                             id="add-row" onclick="cust_mail1()" title="add row"><i class="fa-solid  fa fa-plus rounded"
@@ -619,7 +698,7 @@ function calc() {
     });
   });
 </script> 
-                  
+                 
 <div class="row " id="tab_row2" >
     <div class="col-sm-12 col-lg-12 col-md-12" >
         <label for="" id="label_tab2" class="tab2" style="display: none;">Price List</label><br>
@@ -681,7 +760,7 @@ function calc() {
                             <option value=0 class="opt1 text-dark">0% IGST</option>
                             <option value=3 class="opt1 text-dark">3% IGST</option>
                             <option value=5 class="opt1 text-dark">5% IGST</option>
-                            <option value=12 class="opt1 text-dark">12% IGST</option>
+                            <option value=12 class="opt1 text-dark" disabled>12% IGST</option>
                             <option value=18 class="opt1 text-dark">18% IGST</option>
                             <option value=28 class="opt1 text-dark">28% IGST</option> 
 
@@ -719,7 +798,16 @@ function calc() {
 </div>
 
 
-
+<script>
+  $(document).ready(function () {
+    // Initialize Selectize on the item dropdown
+    $('#itemm2').selectize({
+    
+      sortField: 'value', // Sort the items by their text content
+      
+    });
+  });
+</script> 
 
 <!-- ..................................................   END TABLE 2   .......................................................... -->
 
@@ -2126,7 +2214,18 @@ function calc() {
    
 
 </section>
-
+<!-- error modal -->
+<div id="error-modal" class="modal" style="width: 100%; height: 500px; margin-left: 50px;margin-top: 100px; padding: 50px; text-align: center;">
+  <div class="modal-dialog modal-xl" style=" background-color: #213b52;">
+      <div class="modal-content" style="background-color: #343a40;padding: 50px;">
+          <p id="modal-message"></p>
+          <div class="modal-buttons">
+              <button id="modal-continue" onclick="onModalClick()">Continue</button>
+              <button id="modal-cancel" onclick="onModalClick()">Cancel</button>
+          </div>
+      </div>
+  </div>
+</div>
 
 
 
@@ -2136,16 +2235,16 @@ function calc() {
     <script>
       
       function check_estimate_number(){
-        console.log("haiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+        // console.log("haiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
            var str=document.getElementById('estimate_number').value;
 
            var ref_no=document.getElementById('reference').value;
            var ref_len=ref_no.length;
            var x=ref_len
            var sliced_string=str.slice(-x,)
-           console.log("haiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-           console.log(ref_no)
-           console.log(sliced_string)
+          //  console.log("haiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+          //  console.log(ref_no)
+          //  console.log(sliced_string)
            if(parseInt(ref_no) == parseInt(sliced_string))
            {
                document.getElementById('credit_span').style.color="green";
@@ -2165,7 +2264,7 @@ function calc() {
   function calculateExpiryDate()
   {
     var estimate=document.getElementById('estimate_date').value;
-    console.log(estimate);
+    // console.log(estimate);
     var terms=document.getElementById('c_terms').value;
     var strg=terms.substring(0,3);
     var upper=strg.toUpperCase();
@@ -2183,8 +2282,8 @@ function calc() {
   
   // Add leading zeros if needed
      const formattedExpiryDate = expiryDate.toISOString().split('T')[0];
-     console.log("hellooooooooooooooooooooooooooooooooooooooooo")
-     console.log(formattedExpiryDate);
+    //  console.log("hellooooooooooooooooooooooooooooooooooooooooo")
+    //  console.log(formattedExpiryDate);
      document.getElementById("expiry_date").value=formattedExpiryDate;
 
      }
@@ -2435,7 +2534,7 @@ function addressSame(){
         $('#add-roww').click(function () {
             var tablee = document.getElementById("item_tablee");
             var RowCountt = tablee.rows.length;
-            console.log(RowCountt);
+            // console.log(RowCountt);
             var newRoww = $(`
             <tr id='row${RowCountt}'>
               <td class="text-light">${RowCountt}</td>
@@ -2663,7 +2762,7 @@ $.ajax({
     });
   },
   error: function(xhr, status, error) {
-  console.error(xhr.responseText);
+  // console.error(xhr.responseText);
   }
 });
 }
@@ -2840,7 +2939,7 @@ function reloadPayment() {
       });
     },
     error: function(xhr, status, error) {
-    console.error(xhr.responseText);
+    // console.error(xhr.responseText);
     }
   });
 }
@@ -3091,14 +3190,14 @@ function reloadUnit() {
 <script>
   $(document).ready(function () {
       var roinc = 0
-      console.log("ajax");
+      // console.log("ajax");
       // var place = document.getElementById('pos').value;
       $(document).on('change', '#item1', function () {
           select = $('#item1').val();
           customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          console
+          // console.log(select);
+          // console.log(customer);
+          
           $.ajax({
               type: "GET",
               url: "{% url 'itemdata_challan' %}",
@@ -3107,17 +3206,17 @@ function reloadUnit() {
                   cust: customer
               },
               success: function (response) {
-                  console.log(response)
+                  // console.log(response)
                   data = response.rate
                   data1 = response.gst
                   data2 = response.igst
                   data3 = response.pos
                   data4=response.hsn
                   document.getElementById('rate1').value = data
-                  console.log("helloooooooooooooooooooooooooo");
+                  // console.log("helloooooooooooooooooooooooooo");
 
                   document.getElementById('hsn1').value = data4
-                  console.log("helloooooooooooooooooooooooooo");
+                  // console.log("helloooooooooooooooooooooooooo");
 
                   console.log(data1,'hello');
                   console.log(data2,'hello2');
@@ -3172,6 +3271,27 @@ function reloadUnit() {
                   document.getElementById('rate2').value = data
 
                   document.getElementById('hsn2').value = data4
+
+
+                  console.log(data1,'hello');
+                  console.log(data2,'hello2');
+                  var taxselect=document.getElementById('tax')
+                  var newoption=document.createElement('option')
+                  newoption.text=data1
+                  newoption.value=data1
+                  newoption.selected=true
+                  for(var i=0; i<taxselect.options.length;i++){
+                    taxselect.options[i].disabled=true
+                  }
+                  taxselect.add(newoption)
+
+                  newoption.text=data2
+                  newoption.value=data2
+                  newoption.selected=true
+                  for(var i=0; i<taxselect.options.length;i++){
+                    taxselect.options[i].disabled=true
+                  }
+                  taxselect.add(newoption)
 
                   if (data3 == '{{ company.state }}') {
                       document.getElementById('tgst2').innerHTML = data1 + ' % GST';
@@ -3880,13 +4000,13 @@ function reloadUnit() {
 <script>
     $(document).ready(function () {
         var roinc = 0
-        console.log("ajax");
+        // console.log("ajax");
         // var place = document.getElementById('pos').value;
         $(document).on('change', '#itemm1', function () {
             select = $('#itemm1').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -3895,7 +4015,7 @@ function reloadUnit() {
                     cust: customer
                 },
                 success: function (response) {
-                    console.log(response)
+                    // console.log(response)
                     data = response.rate
                     data1 = response.gst
                     data2 = response.igst
@@ -3903,8 +4023,28 @@ function reloadUnit() {
                     data4=response.hsn
 
                     document.getElementById('ratee1').value = data
-                    console.log('hello world',data);
+                    // console.log('hello world',data);
                     document.getElementById('hsnn1').value = data4
+
+                    console.log(data1,'hello');
+                  console.log(data2,'hello2');
+                  var taxselect=document.getElementById('tax')
+                  var newoption=document.createElement('option')
+                  newoption.text=data1
+                  newoption.value=data1
+                  newoption.selected=true
+                  for(var i=0; i<taxselect.options.length;i++){
+                    taxselect.options[i].disabled=true
+                  }
+                  taxselect.add(newoption)
+
+                  newoption.text=data2
+                  newoption.value=data2
+                  newoption.selected=true
+                  for(var i=0; i<taxselect.options.length;i++){
+                    taxselect.options[i].disabled=true
+                  }
+                  taxselect.add(newoption)
 
                     if (data3 == '{{ company.state }}') {
                         document.getElementById('tgst1').innerHTML = data1 + ' % GST';
@@ -3919,8 +4059,8 @@ function reloadUnit() {
         $(document).on('click', '#itemm2', function () {
             select = $('#itemm2').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -4338,8 +4478,8 @@ function reloadUnit() {
         $(document).on('click', '#itemm14', function () {
             select = $('#itemm14').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -4348,7 +4488,7 @@ function reloadUnit() {
                     cust: customer
                 },
                 success: function (response) {
-                    console.log(response)
+                    // console.log(response)
                     data = response.rate
                     data1 = response.gst
                     data2 = response.igst
@@ -4373,8 +4513,8 @@ document.getElementById('hsnn14').value = data4
         $(document).on('click', '#itemm15', function () {
             select = $('#itemm15').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -4383,7 +4523,7 @@ document.getElementById('hsnn14').value = data4
                     cust: customer
                 },
                 success: function (response) {
-                    console.log(response)
+                    // console.log(response)
                     data = response.rate
                     data1 = response.gst
                     data2 = response.igst
@@ -4408,8 +4548,8 @@ document.getElementById('hsnn14').value = data4
         $(document).on('click', '#itemm16', function () {
             select = $('#itemm16').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -4418,7 +4558,7 @@ document.getElementById('hsnn14').value = data4
                     cust: customer
                 },
                 success: function (response) {
-                    console.log(response)
+                    // console.log(response)
                     data = response.rate
                     data1 = response.gst
                     data2 = response.igst
@@ -4443,8 +4583,8 @@ document.getElementById('hsnn16').value = data4
         $(document).on('click', '#itemm17', function () {
             select = $('#itemm17').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -4453,7 +4593,7 @@ document.getElementById('hsnn16').value = data4
                     cust: customer
                 },
                 success: function (response) {
-                    console.log(response)
+                    // console.log(response)
                     data = response.rate
                     data1 = response.gst
                     data2 = response.igst
@@ -4478,8 +4618,8 @@ document.getElementById('hsnn16').value = data4
         $(document).on('click', '#itemm18', function () {
             select = $('#itemm18').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -4488,7 +4628,7 @@ document.getElementById('hsnn16').value = data4
                     cust: customer
                 },
                 success: function (response) {
-                    console.log(response)
+                    // console.log(response)
                     data = response.rate
                     data1 = response.gst
                     data2 = response.igst
@@ -4513,8 +4653,8 @@ document.getElementById('hsnn16').value = data4
         $(document).on('click', '#itemm19', function () {
             select = $('#itemm19').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -4523,7 +4663,7 @@ document.getElementById('hsnn16').value = data4
                     cust: customer
                 },
                 success: function (response) {
-                    console.log(response)
+                    // console.log(response)
                     data = response.rate
                     data1 = response.gst
                     data2 = response.igst
@@ -4548,8 +4688,8 @@ document.getElementById('hsnn16').value = data4
         $(document).on('click', '#itemm20', function () {
             select = $('#itemm20').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -4558,7 +4698,7 @@ document.getElementById('hsnn16').value = data4
                     cust: customer
                 },
                 success: function (response) {
-                    console.log(response)
+                    // console.log(response)
                     data = response.rate
                     data1 = response.gst
                     data2 = response.igst
@@ -4583,8 +4723,8 @@ document.getElementById('hsnn16').value = data4
         $(document).on('click', '#itemm21', function () {
             select = $('#itemm21').val();
             customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
+            // console.log(select);
+            // console.log(customer);
             $.ajax({
                 type: "GET",
                 url: "{% url 'itemdata_challan' %}",
@@ -4593,7 +4733,7 @@ document.getElementById('hsnn16').value = data4
                     cust: customer
                 },
                 success: function (response) {
-                    console.log(response)
+                    // console.log(response)
                     data = response.rate
                     data1 = response.gst
                     data2 = response.igst
@@ -4617,7 +4757,80 @@ document.getElementById('hsnn16').value = data4
 
 
     });
+
+
+    $(document).on('keyup', '#estimate_number', function(){
+        var estNoValue = this.value.toLowerCase();
+        console.log(estNoValue)
+
+        var lastEstValue = document.getElementById('est_last').value.toLowerCase();
+        console.log(lastEstValue)
+        var lastEstPattern = lastEstValue.replace(/\d+/g, '');
+        console.log(lastEstPattern)
+        var lastEstNum = lastEstValue.match(/\d+/);
+        console.log(lastEstNum)
+        if (estNoValue.startsWith(lastEstPattern)) {
+            var estNum = estNoValue.match(/\d+/);
+            console.log(estNum)
+            if (estNum && lastEstNum) {
+                if (parseInt(estNum[0]) === parseInt(lastEstNum[0]) + 1) {
+                  document.getElementById('credit_span').style.color="green";
+                  document.getElementById('credit_span').innerHTML="Estimate number is continuous.";
+                    // document.getElementById('estimate-error-message').textContent = '';
+                    // closeModal();
+                } else {
+                  document.getElementById('credit_span').style.color="red";
+                  document.getElementById('credit_span').innerHTML="Estimate numbers should be continuous.";
+                    // showModal1('Estimate numbers should be continuous.  Are you sure you want to continue?');
+                }
+            }
+
+            
+        } else {
+            document.getElementById('credit_span').style.color="green";
+            document.getElementById('credit_span').innerHTML="Estimate number does not match the pattern.";
+            // showModal2('Estimate number does not match the pattern. Are you sure you want to continue?');
+        }
+    });
+
+    function showModal1(message) {
+        var modal = document.getElementById('error-modal');
+        var modalMessage = document.getElementById('modal-message');
+        modalMessage.textContent = message;
+        modalMessage.style.color = '#E3A366'
+        modalMessage.style.fontSize = '15px';
+        modal.style.display = 'block';
+    }
+    function showModal2(message) {
+        var modal = document.getElementById('error-modal');
+        var modalMessage = document.getElementById('modal-message');
+        modalMessage.textContent = message;
+        modalMessage.style.color = 'red';
+        modalMessage.style.fontSize = '15px';
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('error-modal');
+        modal.style.display = 'none';
+    }
 </script>
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const qtyInput = document.getElementById('qty1');
+      const availableStock = document.getElementById('available-stock');
+
+      // Initial stock quantity
+      let stockQuantity = parseInt('{{ stock }}');
+
+      // Update stock quantity when quantity changes
+      qtyInput.addEventListener('input', function() {
+          const selectedQuantity = parseInt(qtyInput.value);
+          const remainingStock = stockQuantity - selectedQuantity;
+          availableStock.textContent = remainingStock;
+      });
+  });
+</script> -->
 
 <!-- <script>
   document.addEventListener('DOMContentLoaded', function() {
