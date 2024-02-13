@@ -119,6 +119,39 @@
 }
 
 
+#item2 + .selectize-control {
+  width: 80px; 
+}
+
+
+#item2 + .selectize-control .selectize-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  height: 50px;
+}
+
+
+#item2 + .selectize-control .selectize-dropdown {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+#item2 + .selectize-control .selectize-dropdown-content .option {
+  padding: 8px;
+  cursor: pointer;
+}
+
+
+#item2 + .selectize-control.multi .item {
+  background-color: #e0e0e0;
+  margin-right: 5px;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
 #itemm1 + .selectize-control {
   width: 80px; 
 }
@@ -153,38 +186,7 @@
 }
 
 
-#item2 + .selectize-control {
-  width: 80px; 
-}
 
-
-#item2 + .selectize-control .selectize-input {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 8px;
-  height: 50px;
-}
-
-
-#item2 + .selectize-control .selectize-dropdown {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-
-#item2 + .selectize-control .selectize-dropdown-content .option {
-  padding: 8px;
-  cursor: pointer;
-}
-
-
-#item2 + .selectize-control.multi .item {
-  background-color: #e0e0e0;
-  margin-right: 5px;
-  border-radius: 4px;
-  padding: 2px 6px;
-}
 .modal{
       z-index: 9999;
       overflow: scroll;
@@ -668,12 +670,12 @@ function calc() {
                                               </td>
                                 </tr>
                             </tbody>
-                            <!-- <th>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <th>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Available Stock: <span id="available-stock">{{ stock }}</span></th> -->
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Available Stock: <span id="available-stock">{{ product.stock}}</span></th>
                         </table>
                         <button type="button" class="btn btn-sm text-white tab1" style="background-color: rgb(210, 132, 30) ;"
                             id="add-row" onclick="cust_mail1()" title="add row"><i class="fa-solid  fa fa-plus rounded"
@@ -3184,6 +3186,15 @@ function reloadUnit() {
     })
 
   });
+  $(document).ready(function () {
+    // Initialize Selectize on the item dropdown
+    $('#item2').selectize({
+      
+      sortField: 'value', // Sort the items by their text content
+      
+    })
+
+  });
 </script>
            
 
@@ -3222,16 +3233,16 @@ function reloadUnit() {
                   console.log(data2,'hello2');
                   var taxselect=document.getElementById('tax')
                   var newoption=document.createElement('option')
-                  newoption.text=data1
-                  newoption.value=data1
+                  newoption.text=data2
+                  newoption.value=data2
                   newoption.selected=true
                   for(var i=0; i<taxselect.options.length;i++){
                     taxselect.options[i].disabled=true
                   }
                   taxselect.add(newoption)
 
-                  newoption.text=data2
-                  newoption.value=data2
+                  newoption.text=data1
+                  newoption.value=data1
                   newoption.selected=true
                   for(var i=0; i<taxselect.options.length;i++){
                     taxselect.options[i].disabled=true
@@ -3275,18 +3286,18 @@ function reloadUnit() {
 
                   console.log(data1,'hello');
                   console.log(data2,'hello2');
-                  var taxselect=document.getElementById('tax')
+                  var taxselect=document.getElementById('tax2')
                   var newoption=document.createElement('option')
-                  newoption.text=data1
-                  newoption.value=data1
+                  newoption.text=data2
+                  newoption.value=data2
                   newoption.selected=true
                   for(var i=0; i<taxselect.options.length;i++){
                     taxselect.options[i].disabled=true
                   }
                   taxselect.add(newoption)
 
-                  newoption.text=data2
-                  newoption.value=data2
+                  newoption.text=data1
+                  newoption.value=data1
                   newoption.selected=true
                   for(var i=0; i<taxselect.options.length;i++){
                     taxselect.options[i].disabled=true
@@ -4028,7 +4039,7 @@ function reloadUnit() {
 
                     console.log(data1,'hello');
                   console.log(data2,'hello2');
-                  var taxselect=document.getElementById('tax')
+                  var taxselect=document.getElementById('taxx')
                   var newoption=document.createElement('option')
                   newoption.text=data1
                   newoption.value=data1
