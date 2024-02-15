@@ -1221,34 +1221,130 @@ def retainer_invoice(request):
     context={'invoices':invoices,'company':company}
     return render(request,'retainer_invoice.html',context)
 
-def import_retainer_invoices(request):
-    if request.method == 'POST' and request.FILES.get('file'):
-        uploaded_file = request.FILES['file']
+# def import_retainer_invoices(request):
+#     if request.method == 'POST' and request.FILES.get('file'):
+#         uploaded_file = request.FILES['file']
 
-        try:
-            # Load the Excel workbook
-            workbook = load_workbook(uploaded_file, read_only=True)
-            sheet = workbook.active
+#         try:
+#             # Load the Excel workbook
+#             workbook = load_workbook(uploaded_file, read_only=True)
+#             sheet = workbook.active
 
-            # Process each row in the sheet
-            for row in sheet.iter_rows(min_row=2, values_only=True):
-                # Assuming the structure of your Excel sheet matches the RetainerInvoice model
-                RetainerInvoice.objects.create(
-                    retainer_invoice_date=row[0],
-                    retainer_invoice_number=row[1],
-                    customer_name1=row[2],
-                    customer_mailid=row[3],
-                    total_amount=row[4],
-                    is_sent=row[5] == 'Sent',  # Assuming 'Send' or 'Draft'
-                    balance=row[6],
-                    # Add other fields as needed
-                )
+#             # Process each row in the sheet
+#             for row in sheet.iter_rows(min_row=2, values_only=True):
+#                 # Assuming the structure of your Excel sheet matches the RetainerInvoice model
+#                 RetainerInvoice.objects.create(
+#                     retainer_invoice_date=row[0],
+#                     retainer_invoice_number=row[1],
+#                     customer_name1=row[2],
+#                     customer_mailid=row[3],
+#                     total_amount=row[4],
+#                     is_sent=row[5] == 'Sent',  # Assuming 'Send' or 'Draft'
+#                     balance=row[6],
+#                     # Add other fields as needed
+#                 )
 
-            return JsonResponse({'message': 'Import successful'})
-        except Exception as e:
-            return JsonResponse({'message': f'Error during import: {str(e)}'}, status=500)
+#             return JsonResponse({'message': 'Import successful'})
+#         except Exception as e:
+#             return JsonResponse({'message': f'Error during import: {str(e)}'}, status=500)
 
-    return JsonResponse({'message': 'Invalid request'}, status=400)
+#     return JsonResponse({'message': 'Invalid request'}, status=400)
+def import_purchase_bill(request):
+  if request.method == 'POST' and request.FILES['billfile']  and request.FILES['prdfile']:
+    sid = request.session.get('staff_id')
+    staff =  staff_details.objects.get(id=sid)
+    cmp = company.objects.get(id=staff.company.id)
+    totval = int(PurchaseBill.objects.filter(company=cmp).last().tot_bill_no) + 1
+
+    excel_bill = request.FILES['billfile']
+    excel_b = load_workbook(excel_bill)
+    eb = excel_b['Sheet1']
+    excel_prd = request.FILES['prdfile']
+    excel_p = load_workbook(excel_prd)
+    ep = excel_p['Sheet1']
+
+    for row_number1 in range(2, eb.max_row + 1):
+      billsheet = [eb.cell(row=row_number1, column=col_num).value for col_num in range(1, eb.max_column + 1)]
+      part = party.objects.get(party_name=billsheet[0],email=billsheet[1],company=cmp)
+      PurchaseBill.objects.create(party=part,billno=totval,
+                                  billdate=billsheet[2],
+                                  supplyplace =billsheet[3],
+                                  tot_bill_no = totval,
+                                  company=cmp,staff=staff)
+      
+      pbill = PurchaseBill.objects.last()
+      if billsheet[4] == 'Cheque':
+        pbill.pay_method = 'Cheque'
+        pbill.cheque_no = billsheet[5]
+      elif billsheet[4] == 'UPI':
+        pbill.pay_method = 'UPI'
+        pbill.upi_no = billsheet[5]
+      else:
+        if billsheet[4] != 'Cash':
+          bank = BankModel.objects.get(bank_name=billsheet[4],company=cmp)
+          pbill.pay_method = bank
+        else:
+          pbill.pay_method = 'Cash'
+      pbill.save()
+
+      PurchaseBill.objects.filter(company=cmp).update(tot_bill_no=totval)
+      totval += 1
+      subtotal = 0
+      taxamount=0
+      for row_number2 in range(2, ep.max_row + 1):
+        prdsheet = [ep.cell(row=row_number2, column=col_num).value for col_num in range(1, ep.max_column + 1)]
+        if prdsheet[0] == row_number1:
+          itm = ItemModel.objects.get(item_name=prdsheet[1],item_hsn=int(prdsheet[2]),company=cmp)
+          total=int(prdsheet[3])*int(itm.item_purchase_price) - int(prdsheet[4])
+          PurchaseBillItem.objects.create(purchasebill=pbill,
+                                company=cmp,
+                                product=itm,
+                                qty=prdsheet[3],
+                                discount=prdsheet[4],
+                                total=total)
+
+          if billsheet[3] =='State':
+            taxval = itm.item_gst
+            taxval=taxval.split('[')
+            tax=int(taxval[0][3:])
+          else:
+            taxval = itm.item_igst
+            taxval=taxval.split('[')
+            tax=int(taxval[0][4:])
+
+          subtotal += total
+          tamount = total *(tax / 100)
+          taxamount += tamount
+                
+          if billsheet[3]=='State':
+            gst = round((taxamount/2),2)
+            pbill.sgst=gst
+            pbill.cgst=gst
+            pbill.igst=0
+
+          else:
+            gst=round(taxamount,2)
+            pbill.igst=gst
+            pbill.cgst=0
+            pbill.sgst=0
+
+      gtotal = subtotal + taxamount + float(billsheet[6])
+      balance = gtotal- float(billsheet[7])
+      gtotal = round(gtotal,2)
+      balance = round(balance,2)
+
+      pbill.subtotal=round(subtotal,2)
+      pbill.taxamount=round(taxamount,2)
+      pbill.adjust=round(billsheet[6],2)
+      pbill.grandtotal=gtotal
+      pbill.advance=round(billsheet[7],2)
+      pbill.balance=balance
+      pbill.save()
+
+      PurchaseBillTransactionHistory.objects.create(purchasebill=pbill,staff=pbill.staff,company=pbill.company,action='Created')
+      return JsonResponse({'message': 'File uploaded successfully!'})
+  else:
+    return JsonResponse({'message': 'File upload Failed!'})
 @login_required(login_url='login')
 def add_invoice(request):
     company=company_details.objects.get(user_id=request.user)
@@ -1877,13 +1973,15 @@ def newestimate(request):
                     while int(deleted.reference_number) >= new_number:
                         new_number+=1
         print("helloooooooooooooooooooooooooo")
+        # Pass stock information for each item to the template
+        item_stock = {item.Name: item.stock for item in items}
         if Estimates.objects.filter(reference=1).exists():
                 est_obj=Estimates.objects.get(reference=1)
                 est_no=est_obj.estimate_no
-                context = {'unit':unit,'company': company,'items': items,'customers': customers,'count':new_number,'sales':sales,'purchase':purchase,'payments':payments,'est_no':est_no,'next_estimate_number':next_estimate_number,'est_last':est_last}
+                context = {'unit':unit,'company': company,'items': items,'customers': customers,'count':new_number,'sales':sales,'purchase':purchase,'payments':payments,'est_no':est_no,'next_estimate_number':next_estimate_number,'est_last':est_last,'item_stock': item_stock}
                 return render(request,'new_estimate.html',context)
         else:
-                context = {'unit':unit,'company': company,'items': items,'customers': customers,'count':new_number,'sales':sales,'purchase':purchase,'payments':payments,'next_estimate_number':next_estimate_number,'est_last':est_last}
+                context = {'unit':unit,'company': company,'items': items,'customers': customers,'count':new_number,'sales':sales,'purchase':purchase,'payments':payments,'next_estimate_number':next_estimate_number,'est_last':est_last,'item_stock': item_stock}
                 return render(request,'new_estimate.html',context)
 
 

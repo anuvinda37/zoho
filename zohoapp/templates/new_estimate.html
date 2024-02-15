@@ -616,7 +616,7 @@ function calc() {
                                                 name='item[]' id='item1'>
                                                 <option class='text-dark'>Select</option>
                                                 {% for i in items %}
-                                                <option class="text-dark" value="{{i.Name}}" data-hsn="{{i.HSN}}" data-rate="{{i.Rate}}">{{i.Name}}</option>
+                                                <option class="text-dark" value="{{i.Name}}" data-hsn="{{i.HSN}}" data-rate="{{i.Rate}}" >{{i.Name}}</option>
 
                                                 {% endfor %}
                                             </select>
@@ -670,12 +670,7 @@ function calc() {
                                               </td>
                                 </tr>
                             </tbody>
-                            <th>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Available Stock: <span id="available-stock">{{ product.stock}}</span></th>
+                            <th>&nbsp;Available Stock: <span id="available_stock"></span></th>
                         </table>
                         <button type="button" class="btn btn-sm text-white tab1" style="background-color: rgb(210, 132, 30) ;"
                             id="add-row" onclick="cust_mail1()" title="add row"><i class="fa-solid  fa fa-plus rounded"
@@ -4826,22 +4821,31 @@ document.getElementById('hsnn16').value = data4
         modal.style.display = 'none';
     }
 </script>
-<!-- <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const qtyInput = document.getElementById('qty1');
-      const availableStock = document.getElementById('available-stock');
+<script>
+  $(document).ready(function() {
+      $('.item_select').change(function() {
+          var selectedItem = $(this).val();
+          var availableStock = {{ item_stock|safe }}[selectedItem]; // Retrieve stock for the selected item
+          $('#available_stock').text(availableStock); // Update the available stock display
+      });
+      
+      $('.qty').change(function() {
+          var selectedItem = $(this).closest('tr').find('.item_select').val();
+          var availableStock = parseFloat({{ item_stock|safe }}[selectedItem]); // Retrieve stock for the selected item
+          var selectedQuantity = parseFloat($(this).val()); // Retrieve selected quantity
 
-      // Initial stock quantity
-      let stockQuantity = parseInt('{{ stock }}');
+          // Update available stock after subtracting selected quantity
+          var updatedStock = availableStock - selectedQuantity;
+          if (updatedStock < 0) {
+              updatedStock = 0; // Ensure available stock is not negative
+          }
 
-      // Update stock quantity when quantity changes
-      qtyInput.addEventListener('input', function() {
-          const selectedQuantity = parseInt(qtyInput.value);
-          const remainingStock = stockQuantity - selectedQuantity;
-          availableStock.textContent = remainingStock;
+          $('#available_stock').text(updatedStock); // Update the available stock display
       });
   });
-</script> -->
+</script>
+
+
 
 <!-- <script>
   document.addEventListener('DOMContentLoaded', function() {
