@@ -52,12 +52,59 @@
     padding: 12px 12px 12px 0;
     display: inline-block;
   }
+
+  /* Style the wrapper container */
+  .selectize-control {
+      width: 200px; /* Set the desired width */
+      margin-bottom: 20px;
+    }
+
+    /* Style the input field */
+    .selectize-input {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      height:50px;
+    }
+
+    /* Style the dropdown menu */
+    .selectize-dropdown {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    }
+
+    /* Style individual items in the dropdown */
+    .selectize-dropdown-content .option {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    /* Style the selected items */
+    .selectize-control.multi .item {
+      background-color: #e0e0e0;
+      margin-right: 5px;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+   
 </style>
 
 
 
 
+<script>
+  $(document).ready(function () {
+    // Initialize Selectize on the item dropdown
+    $('#item1').selectize({
+      
+      sortField: 'value', // Sort the items by their text content
+      
+    })
 
+  });
+  </script>
 
 <div class="container-fluid containerprof">
   <div class="card " style="width: 100%;">
@@ -282,7 +329,7 @@
             </thead>
             <tbody id="tbody-table">
               <tr class="item-row" id="row1">
-                <td class="index-number">1</td>
+                <td style="border: none;width:5px;" class="index-number">1</td>
                 <td>
                   <select class='form-control border-0 bg-transparent text-white item_select itm' name='item[]'
                     id='item1' onchange="itemfunction(this.id)">
@@ -293,17 +340,17 @@
                   </select>
                 </td>
                 <td><input type="text" class="form-control bg-transparent border-0 bg-light text-light border-0"
-                    name="description[]" style="width: 350px;" required id="description1" /></td>
+                    name="description[]" style="width: 100px;" required id="description1" /></td>
                 <td><input type="number" name="quantity[]" id="qty1"
                     class="form-control bg-transparent text-white border-0 text-right qty"
                     style="border: none;width: 100px;" onchange="calculateAmount(1)">
                 </td>
                 <td><input type="number" class="rate form-control bg-transparent border-0 bg-light text-light border-0"
-                    name="rate[]" style="width: 150px;" step="0.01" required id="rate1" onchange="calculateAmount(1)"
+                    name="rate[]" style="width: 80px;" step="0.01" required id="rate1" onchange="calculateAmount(1)"
                     readonly /></td>
                 <td><input type="number"
                     class="amount form-control bg-transparent border-0 bg-light text-light border-0" name="amount[]"
-                    style="width: 150px;" step="0.01" required id="amount1" readonly /></td>
+                    style="width: 100px;" step="0.01" required id="amount1" readonly /></td>
                 <td class="text-center" style="display: grid;">
                   <a href="#"
                     class="delete-row btn btn-transparent btn-outline-danger btn-sm rounded-circle text-danger"
@@ -314,6 +361,7 @@
                 </td>
               </tr>
             </tbody>
+            <th>&nbsp;Available Stock: <span id="available_stock"></span></th>
           </table>
 
           <br>
@@ -937,7 +985,7 @@
       </div>
     </div>
 
-
+    
 
     <!-- ############################################################################################### -->
 
@@ -2389,7 +2437,29 @@
 </script>
 
 
+<script>
+  $(document).ready(function() {
+      $('.item_select').change(function() {
+          var selectedItem = $(this).val();
+          var availableStock = {{ item_stock|safe }}[selectedItem]; // Retrieve stock for the selected item
+          $('#available_stock').text(availableStock); // Update the available stock display
+      });
+      
+      $('.qty').change(function() {
+          var selectedItem = $(this).closest('tr').find('.item_select').val();
+          var availableStock = parseFloat({{ item_stock|safe }}[selectedItem]); // Retrieve stock for the selected item
+          var selectedQuantity = parseFloat($(this).val()); // Retrieve selected quantity
 
+          // Update available stock after subtracting selected quantity
+          var updatedStock = availableStock - selectedQuantity;
+          if (updatedStock < 0) {
+              updatedStock = 0; // Ensure available stock is not negative
+          }
+
+          $('#available_stock').text(updatedStock); // Update the available stock display
+      });
+  });
+</script>
 
 
 

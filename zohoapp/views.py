@@ -1357,14 +1357,15 @@ def add_invoice(request):
     itm=AddItem.objects.filter(user=request.user.id)
     purchase=Purchase.objects.all()
     last_reference = retInvoiceReference.objects.filter(user=request.user.id).last()
-    
-
+    next_ret_number = ''  # Initialize next_ret_number with a default value
+    lastSalesNo = ''
     if last_record ==None:
         reference = '01'
         remaining_characters=''
+        
     else:
         lastSalesNo = last_record.retainer_invoice_number
-        last_digit_index=len(lastSalesNo)
+        last_two_numbers = int(lastSalesNo[-2:])+1
         for i in range(len(lastSalesNo)-1,-1,-1):
             if not lastSalesNo[i].isdigit():
                 last_digit_index=i+1
@@ -1378,8 +1379,7 @@ def add_invoice(request):
         # print("lastSalesNo:", lastSalesNo)  # Print lastSalesNo to the terminal
         last_two_numbers = int(lastSalesNo[-2:])+1
         # print(last_two_numbers)
-        remaining_characters = lastSalesNo[:-2] 
-        # print("remaining_characters:",remaining_characters) 
+        remaining_characters = lastSalesNo[:-2]  
         if remaining_characters == '':
             if last_two_numbers < 10:
                 reference = '0'+str(last_two_numbers)
@@ -1398,8 +1398,9 @@ def add_invoice(request):
         else:
             reford = str(last_reference.reference+1)
 
-    context={'customer1':customer1,'pay':payments,'company':company,'bank':bank,'unit':unit,'reford':reford,'reference':reference,'remaining_characters':remaining_characters,'itm':itm,'sales':sales,'purchase':purchase,'lastSalesNo':lastSalesNo,'next_ret_number':next_ret_number,}    
+    context={'customer1':customer1,'pay':payments,'company':company,'bank':bank,'unit':unit,'reford':reford,'reference':reference,'remaining_characters':remaining_characters,'itm':itm,'sales':sales,'purchase':purchase,'lastSalesNo':lastSalesNo,'next_ret_number':next_ret_number}    
     return render(request,'add_invoice.html',context)
+
 
 @login_required(login_url='login')
 def create_invoice_draft(request):
@@ -1939,6 +1940,8 @@ def newestimate(request):
         purchase=Purchase.objects.all()
         payments = payment_terms.objects.filter(user=user)
         # print("helloooooooooooooooooooooooooo")
+        next_estimate_number = ''  # Initialize next_estimate_number with a default value
+        est_last = ''  # Initialize est_last with a default value
         if Estimates.objects.filter(company = cmp1).exists():
             latest_bill = Estimates.objects.filter(company = cmp1).order_by('-reference').first()
             # print(latest_bill.estimate_no+1)
@@ -1976,13 +1979,13 @@ def newestimate(request):
         # Pass stock information for each item to the template
         item_stock = {item.Name: item.stock for item in items}
         if Estimates.objects.filter(reference=1).exists():
-                est_obj=Estimates.objects.get(reference=1)
-                est_no=est_obj.estimate_no
-                context = {'unit':unit,'company': company,'items': items,'customers': customers,'count':new_number,'sales':sales,'purchase':purchase,'payments':payments,'est_no':est_no,'next_estimate_number':next_estimate_number,'est_last':est_last,'item_stock': item_stock}
-                return render(request,'new_estimate.html',context)
+            est_obj=Estimates.objects.filter(reference=1)
+            # est_no=est_obj.estimate_no
+            context = {'unit':unit,'company': company,'items': items,'customers': customers,'count':new_number,'sales':sales,'purchase':purchase,'payments':payments,'next_estimate_number':next_estimate_number,'est_last':est_last,'item_stock': item_stock}
+            return render(request,'new_estimate.html',context)
         else:
-                context = {'unit':unit,'company': company,'items': items,'customers': customers,'count':new_number,'sales':sales,'purchase':purchase,'payments':payments,'next_estimate_number':next_estimate_number,'est_last':est_last,'item_stock': item_stock}
-                return render(request,'new_estimate.html',context)
+            context = {'unit':unit,'company': company,'items': items,'customers': customers,'count':new_number,'sales':sales,'purchase':purchase,'payments':payments,'next_estimate_number':next_estimate_number,'est_last':est_last,'item_stock': item_stock}
+            return render(request,'new_estimate.html',context)
 
 
 def itemdata_est(request):

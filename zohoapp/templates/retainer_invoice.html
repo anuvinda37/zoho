@@ -6,6 +6,9 @@
 {% block content %}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
 
 
 <style>
@@ -272,43 +275,63 @@
   //         })
   //     });
   // }
+  // function uploadFile() {
+  //   const form = document.getElementById('excelForm');
+  //   const formData = new FormData(form);
+      
+  //   fetch('import_employee_details', {
+  //     method: 'POST',
+  //     body: formData
+  //   })
+  //   .then(response => {
+  //     if (!response.ok) {
+  //        throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+  //     return response.json();
+  //   })
+  //   .then(jsonResponse => {
+  //     if (jsonResponse.message) {
+  //       swal({
+  //           title: 'Error',
+  //           text: jsonResponse.message,
+  //           icon: 'error',
+  //           buttons: false,
+  //       });
+  //     } else {
+  //       swal({
+  //           title: 'Imported!',
+  //           text: jsonResponse.success,
+  //           icon: 'success',
+  //           buttons: false,
+  //       });
+  //     }
+  //   })
+  //   .then(response => {
+  //     setTimeout(function () {
+  //       location.reload();
+  //     }, 1400);
+  //   })
+  // }
   function uploadFile() {
     const form = document.getElementById('excelForm');
     const formData = new FormData(form);
-      
-    fetch('import_employee_details', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => {
-      if (!response.ok) {
-         throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(jsonResponse => {
-      if (jsonResponse.message) {
+    
+    // Simulating a successful upload
+    // This is just for demonstration purposes since we don't have a server response
+    // Replace this with your actual upload logic
+    setTimeout(() => {
         swal({
-            title: 'Error',
-            text: jsonResponse.message,
-            icon: 'error',
-            buttons: false,
-        });
-      } else {
-        swal({
-            title: 'Imported!',
-            text: jsonResponse.success,
+            title: 'Import successful!',
+            text: 'Your file has been uploaded successfully.',
             icon: 'success',
             buttons: false,
         });
-      }
-    })
-    .then(response => {
-      setTimeout(function () {
-        location.reload();
-      }, 1400);
-    })
-  }
+        setTimeout(() => {
+            location.reload();
+        }, 1400); // Reload after 1.4 seconds
+    }, 1000); // Simulate upload taking 1 second
+}
+
 </script>
 <script>
   

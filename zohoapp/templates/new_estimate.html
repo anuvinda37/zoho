@@ -204,165 +204,165 @@
    
   
 
-function calc() {
-    var x=document.getElementById("cus_place").value
-    var y=document.getElementById("state").value
-    if ( x == y )
-    {
-        $('#item_table tbody tr').each(function () {
-            var html = $(this).html();
-            if (html != '') {
-                console.log('rows');
-                var qty = $(this).find('.qty').val();
-                var rate = $(this).find('.rate').val();
-                var discount = $(this).find('.discount').val();
-                var tax = $(this).find('.tax').val();
+// function calc() {
+//     var x=document.getElementById("cus_place").value
+//     var y=document.getElementById("state").value
+//     if ( x == y )
+//     {
+//         $('#item_table tbody tr').each(function () {
+//             var html = $(this).html();
+//             if (html != '') {
+//                 console.log('rows');
+//                 var qty = $(this).find('.qty').val();
+//                 var rate = $(this).find('.rate').val();
+//                 var discount = $(this).find('.discount').val();
+//                 var tax = $(this).find('.tax').val();
 
-                $(this).find('.taxamount').val((qty * rate - discount) * (tax / 100));
-                var taxamount = parseFloat($(this).find('.taxamount').val());
-                $(this).find('.amount').val(qty * rate - discount);
+//                 $(this).find('.taxamount').val((qty * rate - discount) * (tax / 100));
+//                 var taxamount = parseFloat($(this).find('.taxamount').val());
+//                 $(this).find('.amount').val(qty * rate - discount);
                 
               
 
-                calc_total();
+//                 calc_total();
            
-            }
-        });
-       }
-       if ( x != y )
-       {
-        $('#item_tablee tbody tr').each(function () {
+//             }
+//         });
+//        }
+//        if ( x != y )
+//        {
+//         $('#item_tablee tbody tr').each(function () {
 
-        var html = $(this).html();
-      if (html != '') {
+//         var html = $(this).html();
+//       if (html != '') {
     
 
-    console.log('rows');
-    var qtyy = $(this).find('.qtyy').val();
-    var ratee = $(this).find('.ratee').val();
-    var discountt = $(this).find('.discountt').val();
-    var taxx= $(this).find('.taxx').val();
-    console.log(qtyy);
-    console.log(ratee);
-    console.log(discountt);
-    console.log(taxx);
-    $(this).find('.taxamountt').val((qtyy * ratee - discountt) * (taxx / 100));
-    var taxamountt = parseFloat($(this).find('.taxamountt').val());
-    $(this).find('.amountt').val(qtyy * ratee - discountt);
+//     console.log('rows');
+//     var qtyy = $(this).find('.qtyy').val();
+//     var ratee = $(this).find('.ratee').val();
+//     var discountt = $(this).find('.discountt').val();
+//     var taxx= $(this).find('.taxx').val();
+//     console.log(qtyy);
+//     console.log(ratee);
+//     console.log(discountt);
+//     console.log(taxx);
+//     $(this).find('.taxamountt').val((qtyy * ratee - discountt) * (taxx / 100));
+//     var taxamountt = parseFloat($(this).find('.taxamountt').val());
+//     $(this).find('.amountt').val(qtyy * ratee - discountt);
     
 
  
 
-    calc_total();
-   }
-});
-    }
-}
-    function calc_total() {
-        var x=document.getElementById("cus_place").value
-        var y=document.getElementById("state").value
-        if ( x == y )
-        { 
-        total = 0;
-        $('.amount').each(function () {
-            total += parseFloat($(this).val()) ;
+//     calc_total();
+//    }
+// });
+//     }
+// }
+//     function calc_total() {
+//         var x=document.getElementById("cus_place").value
+//         var y=document.getElementById("state").value
+//         if ( x == y )
+//         { 
+//         total = 0;
+//         $('.amount').each(function () {
+//             total += parseFloat($(this).val()) ;
             
-        });
-        taxamount = 0;
-        $('.taxamount').each(function () {
-            taxamount += parseFloat($(this).val()) ;
+//         });
+//         taxamount = 0;
+//         $('.taxamount').each(function () {
+//             taxamount += parseFloat($(this).val()) ;
 
-        });
+//         });
        
        
-        $('#subtotal').val(total.toFixed(2));
-        $('#total_taxamount').val(taxamount.toFixed(2));
+//         $('#subtotal').val(total.toFixed(2));
+//         $('#total_taxamount').val(taxamount.toFixed(2));
 
-        $('#total').val((taxamount + total).toFixed(2));
+//         $('#total').val((taxamount + total).toFixed(2));
 
-        test();
-        calc_ship();
+//         test();
+//         calc_ship();
 
-       }
-       else
-       {
-        total = 0;
-        $('.amountt').each(function () {
-            total += parseFloat($(this).val()) ;
+//        }
+//        else
+//        {
+//         total = 0;
+//         $('.amountt').each(function () {
+//             total += parseFloat($(this).val()) ;
             
-        });
-        taxamount = 0;
-        $('.taxamountt').each(function () {
-            taxamount += parseFloat($(this).val()) ;
+//         });
+//         taxamount = 0;
+//         $('.taxamountt').each(function () {
+//             taxamount += parseFloat($(this).val()) ;
 
-        });
+//         });
        
        
-        $('#subtotal').val(total.toFixed(2));
-        $('#total_taxamount').val(taxamount.toFixed(2));
+//         $('#subtotal').val(total.toFixed(2));
+//         $('#total_taxamount').val(taxamount.toFixed(2));
 
-        $('#total').val((taxamount + total).toFixed(2));
+//         $('#total').val((taxamount + total).toFixed(2));
 
-        test();
-        calc_ship();
+//         test();
+//         calc_ship();
 
-       }
-    }
+//        }
+//     }
 
-    function test() {
-        console.log('test');
-        d = 0;
-        var pos = document.getElementById("cus_place").value;
-        var state = document.getElementById("state").value;
+//     function test() {
+//         console.log('test');
+//         d = 0;
+//         var pos = document.getElementById("cus_place").value;
+//         var state = document.getElementById("state").value;
 
-        if (pos == state) {
-            console.log(pos);
-            console.log(state);
-            console.log(taxamount);
-            gst = taxamount / 2;
-            // gst = Math.round (gst);
-            console.log(gst);
-            $('#cgst').val(parseFloat(gst.toFixed(2)));
-            $('#sgst').val(parseFloat(gst.toFixed(2)));
-            $('#igst').val(parseFloat(d.toFixed(2)));
-            document.getElementById("tr_cgst").style.display = "table-row";
-            document.getElementById("tr_sgst").style.display = "table-row";
-            document.getElementById('tr_igst').style.display = "none";
+//         if (pos == state) {
+//             console.log(pos);
+//             console.log(state);
+//             console.log(taxamount);
+//             gst = taxamount / 2;
+//             // gst = Math.round (gst);
+//             console.log(gst);
+//             $('#cgst').val(parseFloat(gst.toFixed(2)));
+//             $('#sgst').val(parseFloat(gst.toFixed(2)));
+//             $('#igst').val(parseFloat(d.toFixed(2)));
+//             // document.getElementById("tr_cgst").style.display = "table-row";
+//             // document.getElementById("tr_sgst").style.display = "table-row";
+//             // document.getElementById('tr_igst').style.display = "none";
 
-        }
-        if (pos != state) {
-            // else{
-            console.log(pos);
-            console.log(state);
-            $('#igst').val(taxamount.toFixed(2));
-            $('#cgst').val(d.toFixed(2));
-            $('#sgst').val(d.toFixed(2));
-            document.getElementById('tr_igst').style.display = "table-row";
-            document.getElementById('tr_cgst').style.display = "none";
-            document.getElementById('tr_sgst').style.display = "none";
+//         }
+//         if (pos != state) {
+//             // else{
+//             console.log(pos);
+//             console.log(state);
+//             $('#igst').val(taxamount.toFixed(2));
+//             $('#cgst').val(d.toFixed(2));
+//             $('#sgst').val(d.toFixed(2));
+//             // document.getElementById('tr_igst').style.display = "table-row";
+//             // document.getElementById('tr_cgst').style.display = "none";
+//             // document.getElementById('tr_sgst').style.display = "none";
      
 
-        }
-    }  
+//         }
+//     }  
   
 
-    function calc_ship()
-    {
-        var shipping_charge=parseFloat($('#shipping_charge').val());
-        var adjustment_charge=parseFloat($('#adjustment_charge').val());
-        var subtotal=parseFloat($('#subtotal').val());
-        var total_tax=parseFloat($('#total_taxamount').val());
-        var total=subtotal + total_tax + shipping_charge + adjustment_charge;
+//     function calc_ship()
+//     {
+//         var shipping_charge=parseFloat($('#shipping_charge').val());
+//         var adjustment_charge=parseFloat($('#adjustment_charge').val());
+//         var subtotal=parseFloat($('#subtotal').val());
+//         var total_tax=parseFloat($('#total_taxamount').val());
+//         var total=subtotal + total_tax + shipping_charge + adjustment_charge;
 
-        $('#shipping_charge').val(shipping_charge.toFixed(2));
-            $('#adjustment_charge').val(adjustment_charge.toFixed(2));
-            $('#total').val(total.toFixed(2));
-
-
-    }
+//         $('#shipping_charge').val(shipping_charge.toFixed(2));
+//             $('#adjustment_charge').val(adjustment_charge.toFixed(2));
+//             $('#total').val(total.toFixed(2));
 
 
-</script>
+//     }
+
+
+// </script>
 
 
 <script>
@@ -596,8 +596,8 @@ function calc() {
                             <thead>
                                 <tr>
                                   <th class="text-right" style="font-weight: bold;color: rgb(245, 154, 36);">#</th>
-                                  <th class="p-3" style="font-weight: bold;color: rgb(245, 154, 36);" >Item  <a href="{% url 'additem' %}" ><i class="fas fa-plus p-2 rounded"
-                                                style="color: white; background-color: rgb(210, 132, 30);"></i></a></th>
+                                  <th class="p-3" style="font-weight: bold;color:rgb(245, 154, 36);">Item  <a href="" data-toggle="modal" data-target="#newitem"><i class="fas fa-plus p-2 rounded"
+                                    style="color: white; background-color: rgb(210, 132, 30);"></i></a></th>
                                    <th class="text-right" style="font-weight: bold;color: rgb(245, 154, 36);">Hsn</th>
                                     <th class="text-right" style="font-weight: bold;color: rgb(245, 154, 36);">Quantity</th>
                                     <th class="text-right" style="font-weight: bold;color: rgb(245, 154, 36);">Rate</th>
@@ -670,7 +670,7 @@ function calc() {
                                               </td>
                                 </tr>
                             </tbody>
-                            <th>&nbsp;Available Stock: <span id="available_stock"></span></th>
+                            <!-- <th>&nbsp;Available Stock: <span id="available_stock"></span></th> -->
                         </table>
                         <button type="button" class="btn btn-sm text-white tab1" style="background-color: rgb(210, 132, 30) ;"
                             id="add-row" onclick="cust_mail1()" title="add row"><i class="fa-solid  fa fa-plus rounded"
@@ -738,7 +738,7 @@ function calc() {
                     </td>
                     <td class='text-right' style="width: 15%;"><input type='number' id='qtyy1'
                             class='form-control bg-transparent border-0 text-light text-right qtyy' name='quantityy[]'
-                            value='0'>
+                            value='0' onchange="calc()">
                     </td>
                     <td class='text-right' style="width: 15%;"><input type='number' id='ratee1'
                             class='form-control bg-transparent border-0 text-light text-right ratee' name='ratee[]'
@@ -782,7 +782,7 @@ function calc() {
                               </td>
                 </tr>
             </tbody>
-
+            <!-- <th>&nbsp;Available Stock: <span id="available_stockk"></span></th> -->
         </table>
         <button type="button" class="btn btn-sm text-white tab2" style="background-color: rgb(210, 132, 30);display: none;"
             id="add-roww" onclick="cust_mail1()"><i class="fa-solid  fa fa-plus rounded"
@@ -1538,7 +1538,7 @@ function calc() {
 
     <!-- ###################################################################################### -->
 
-    <!-- customer modal -->
+     <!-- customer modal -->
 
 
     <div class="modal fade" id="newcustomer">
@@ -2134,6 +2134,7 @@ function calc() {
 
 
 <!-- ############################################################################################### -->
+
 
 <!--................................................... END CUSTOMER MODAL ...................................................... -->
 
@@ -2850,7 +2851,9 @@ $(document).ready(function() {
                                    document.getElementById("label_tab2").style.display="none"
                                    document.getElementById("add-row").style.display="block"
                                    document.getElementById("add-roww").style.display="none"
-                                  
+                                   document.getElementById("tr_cgst").style.display = "table-row";
+                                   document.getElementById("tr_sgst").style.display = "table-row";
+                                   document.getElementById('tr_igst').style.display = "none";
 
 
                                     
@@ -2864,7 +2867,9 @@ $(document).ready(function() {
                                    document.getElementById("label_tab2").style.display="block"
                                    document.getElementById("add-row").style.display="none"
                                    document.getElementById("add-roww").style.display="block"
-                                    
+                                   document.getElementById('tr_igst').style.display = "table-row";
+                                   document.getElementById('tr_cgst').style.display = "none";
+                                   document.getElementById('tr_sgst').style.display = "none";
                                     
                                 }
                     
@@ -4844,7 +4849,202 @@ document.getElementById('hsnn16').value = data4
       });
   });
 </script>
+<script>
+  $(document).ready(function() {
+      $('.item_selectt').change(function() {
+          var selectedItemm = $(this).val();
+          var availableStock = {{ item_stock|safe }}[selectedItemm]; // Retrieve stock for the selected item
+          $('#available_stockk').text(availableStock); // Update the available stock display
+      });
+      
+      $('.qtyy').change(function() {
+          var selectedItemm = $(this).closest('tr').find('.item_selectt').val();
+          var availableStock = parseFloat({{ item_stock|safe }}[selectedItemm]); // Retrieve stock for the selected item
+          var selectedQuantityy = parseFloat($(this).val()); // Retrieve selected quantity
 
+          // Update available stock after subtracting selected quantity
+          var updatedStockk = availableStock - selectedQuantityy;
+          if (updatedStockk < 0) {
+              updatedStockk = 0; // Ensure available stock is not negative
+          }
+
+          $('#available_stockk').text(updatedStockk); // Update the available stock display
+      });
+  });
+</script>
+
+<script>
+function calc() {
+  console.log('Good morning')
+  var x=document.getElementById("cus_place").value
+  console.log('x:',x)
+  var y=document.getElementById("state").value
+  console.log('y:',y)
+  if ( x == y )
+  {
+      $('#item_table tbody tr').each(function () {
+          var html = $(this).html();
+          if (html != '') {
+              console.log('rows');
+              var qty = $(this).find('.qty').val();
+              console.log('qty:',qty)
+              var rate = $(this).find('.rate').val();
+              console.log('rate:',rate)
+              var discount = $(this).find('.discount').val();
+              console.log('discount:',discount)
+              var tax = $(this).find('.tax').val();
+              console.log('tax*****',tax)
+              console.log((qty * rate - discount) * (tax / 100))
+              $(this).find('.taxamount').val((qty * rate - discount) * (tax / 100));
+              
+              var taxamount = parseFloat($(this).find('.taxamount').val());
+              $(this).find('.amount').val(qty * rate - discount);
+              
+            
+
+              calc_total();
+         
+          }
+      });
+     }
+    //  else:
+     if ( x != y )
+     {
+      $('#item_tablee tbody tr').each(function () {
+
+      var html = $(this).html();
+    if (html != '') {
+  
+
+  console.log('rows');
+  var qtyy = $(this).find('.qtyy').val();
+  console.log('qtyy:',qtyy)
+  var ratee = $(this).find('.ratee').val();
+  console.log('ratee:',ratee)
+  var discountt = $(this).find('.discountt').val();
+  var taxx= $(this).find('.taxx').val();
+  console.log('taxx',taxx)
+  console.log(qtyy);
+  console.log(ratee);
+  console.log(discountt);
+  console.log(taxx);
+  $(this).find('.taxamountt').val((qtyy * ratee - discountt) * (taxx / 100));
+  var taxamountt = parseFloat($(this).find('.taxamountt').val());
+  $(this).find('.amountt').val(qtyy * ratee - discountt);
+  
+
+
+
+  calc_total();
+ }
+});
+  }
+}
+  function calc_total() {
+      var x=document.getElementById("cus_place").value
+      var y=document.getElementById("state").value
+      if ( x == y )
+      { 
+      total = 0;
+      $('.amount').each(function () {
+          total += parseFloat($(this).val()) ;
+          
+      });
+      taxamount = 0;
+      $('.taxamount').each(function () {
+          taxamount += parseFloat($(this).val()) ;
+
+      });
+     
+     
+      $('#subtotal').val(total.toFixed(2));
+      $('#total_taxamount').val(taxamount.toFixed(2));
+
+      $('#total').val((taxamount + total).toFixed(2));
+
+      test();
+      calc_ship();
+
+     }
+     else
+     {
+      total = 0;
+      $('.amountt').each(function () {
+          total += parseFloat($(this).val()) ;
+          
+      });
+      taxamount = 0;
+      $('.taxamountt').each(function () {
+          taxamount += parseFloat($(this).val()) ;
+
+      });
+     
+     
+      $('#subtotal').val(total.toFixed(2));
+      $('#total_taxamount').val(taxamount.toFixed(2));
+
+      $('#total').val((taxamount + total).toFixed(2));
+
+      test();
+      calc_ship();
+
+     }
+  }
+
+  function test() {
+      console.log('test');
+      d = 0;
+      var pos = document.getElementById("cus_place").value;
+      var state = document.getElementById("state").value;
+
+      if (pos == state) {
+          console.log(pos);
+          console.log(state);
+          console.log(taxamount);
+          gst = taxamount / 2;
+          // gst = Math.round (gst);
+          console.log(gst);
+          $('#cgst').val(parseFloat(gst.toFixed(2)));
+          $('#sgst').val(parseFloat(gst.toFixed(2)));
+          $('#igst').val(parseFloat(d.toFixed(2)));
+          // document.getElementById("tr_cgst").style.display = "table-row";
+          // document.getElementById("tr_sgst").style.display = "table-row";
+          // document.getElementById('tr_igst').style.display = "none";
+
+      }
+      if (pos != state) {
+          // else{
+          console.log(pos);
+          console.log(state);
+          $('#igst').val(taxamount.toFixed(2));
+          $('#cgst').val(d.toFixed(2));
+          $('#sgst').val(d.toFixed(2));
+          // document.getElementById('tr_igst').style.display = "table-row";
+          // document.getElementById('tr_cgst').style.display = "none";
+          // document.getElementById('tr_sgst').style.display = "none";
+   
+
+      }
+  }  
+
+
+  function calc_ship()
+  {
+      var shipping_charge=parseFloat($('#shipping_charge').val());
+      var adjustment_charge=parseFloat($('#adjustment_charge').val());
+      var subtotal=parseFloat($('#subtotal').val());
+      var total_tax=parseFloat($('#total_taxamount').val());
+      var total=subtotal + total_tax + shipping_charge + adjustment_charge;
+
+      $('#shipping_charge').val(shipping_charge.toFixed(2));
+          $('#adjustment_charge').val(adjustment_charge.toFixed(2));
+          $('#total').val(total.toFixed(2));
+
+
+  }
+
+
+</script>
 
 
 <!-- <script>
