@@ -641,7 +641,7 @@ function calc() {
                                             value='0.00'>
                                     </td>
                                     <td class='text-right' style="width: 15%;"> 
-                                        <select name='tax[]' id='tax'
+                                        <select name='tax[]' id='tax' onchange="Taxchange(this)"
                                             class=' bg-transparent text-light text-right border-0 tax' style="width: 85%;" >
                                             <!-- <option value="" selected>select</option> -->
 
@@ -680,7 +680,38 @@ function calc() {
  
                 </div>
 
-
+                <script>
+                  // document.addEventListener('DOMContentLoaded', function() {
+                    function Taxchange(data){
+                    
+                    console.log('function')
+                    var id = data.getAttribute('data-id')
+                    var label=document.getElementById(`ml${id}`)
+                  for(var i=0; i<data.options.length;i++){
+                    var value = data.options[i].getAttribute('data-danger')
+                    console.log(typeof value)
+                    if (data.value === '){
+                      var style = true;
+                      label.style.display='none';
+                    }
+                    else{
+                      label.style.display='block';
+                      var style = false;
+                    }
+                  //  if( data.options[i].value===gstvalue){
+                  //   data.options[i].selected=true
+                  //   data.options[i].setAttribute('data-danger','1')
+                  //   console.log('rs')
+                  //  }
+                  //  else{
+                  //   data.options[i].setAttribute('data-danger','0')
+                  //  }
+                  }
+                
+                   }
+                // });
+                 
+                </script>
      
 <!-- ..................................................   END TABLE1   .......................................................... -->
 
@@ -764,7 +795,7 @@ function calc() {
                             
                             
                         </select>
-                       
+                        <label id="ml1" class="text-warning" style="display: block;">Invalid Tax Rate*</label>
                     </td>
 
                     <td style="display: none;">
@@ -2490,7 +2521,7 @@ function addressSame(){
                 <td class='text-right'><input type='number' id='discount${RowCount}'
                         class='form_control bg-transparent border-0 text-light text-right discount' name='discount[]' value='0.00' style="width:85%">
                 </td>
-                <td class='text-right'> <select name='tax[]' id='tax${RowCount}'
+                <td class='text-right'> <select name='tax[]' id='tax${RowCount}' data-id='${RowCount}' onchange="Taxchange(this)"
                         class="bg-transparent text-light text-right border-0 tax" style="width:85%">
                         <option value="" selected>select</option>
                         <option value=0 class="text-dark">0% GST</option>
@@ -2501,7 +2532,7 @@ function addressSame(){
                         <option value=28 class="text-dark">28% GST</option>
                        
                     </select>
-                    
+                    <label id="ml${RowCount}" class="text-warning" style="display: none;">Invalid Tax Rate*</label>
                     </td>
                 <td style="display: none;">
                     <input type="text" name='taxamount1' id="taxamount${RowCount}"  class="form-control bg-transparent border-0 text-light text-right taxamount" />
@@ -3195,7 +3226,9 @@ function reloadUnit() {
            
 
 <script>
+   
   $(document).ready(function () {
+    
       var roinc = 0
       // console.log("ajax");
       // var place = document.getElementById('pos').value;
@@ -3253,18 +3286,18 @@ function reloadUnit() {
                   if ('Kerala' == '{{ company.state }}') {
                      console.log('heyy')
                       document.getElementById('tax').html = data1 ;
-                      document.getElementById('tax').value = data1
+                      document.getElementById('tax').value = data1;
                       // $('#tax').html(data1)
                       // $('#tax').value(data1)
 
 
 
-                      var taxDropdown = document.getElementById('tax');
-                      var option = document.createElement('option');
-                      option.value = data1;
-                      option.textContent = data1 + '% GST';
-                      taxDropdown.appendChild(option);
-                      taxDropdown.value = data1; // Set the selected value
+                      // var taxDropdown = document.getElementById('tax');
+                      // var option = document.createElement('option');
+                      // option.value = data1;
+                      // option.textContent = data1 + '% GST';
+                      // taxDropdown.appendChild(option);
+                      // taxDropdown.value = data1; // Set the selected value
 
                       
                   }
@@ -3274,6 +3307,7 @@ function reloadUnit() {
           });
       });
       // console.log('pos:'+place_of_supply);
+
       $(document).on('click', '#item2', function () {
           select = $('#item2').val();
           customer = $('#customer_sel').val();
@@ -3299,15 +3333,23 @@ function reloadUnit() {
                   document.getElementById('hsn2').value = data4
 
 
-                  console.log(data1,'hello');
+                  console.log(typeof data1,'hello');
                   console.log(data2,'hello2');
+                  var number=data1.split(/\s+/)
+                  console.log(number,'Good afternoon')
+                  var gstvalue = data1.match(/\[(\d+)%\]/)[1];
+                  
                   var taxselect=document.getElementById('tax2')
-                  var newoption=document.createElement('option')
-                  newoption.text=data2
-                  newoption.value=data2
-                  newoption.selected=true
+                 
                   for(var i=0; i<taxselect.options.length;i++){
-                    taxselect.options[i].disabled=true
+                   if( taxselect.options[i].value===gstvalue){
+                    taxselect.options[i].selected=true
+                    taxselect.options[i].setAttribute('data-danger','1')
+                    console.log('rs')
+                   }
+                   else{
+                    taxselect.options[i].setAttribute('data-danger','0')
+                   }
                   }
                   taxselect.add(newoption)
 
