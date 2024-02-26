@@ -88,7 +88,72 @@
       border-radius: 4px;
       padding: 2px 6px;
     }
-   
+    #customer_sel + .selectize-control {
+      width: 800px; 
+    }
+
+
+    #customer_sel + .selectize-control .selectize-input {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      height: 30px;
+    }
+
+
+    #customer_sel + .selectize-control .selectize-dropdown {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+
+    #customer_sel + .selectize-control .selectize-dropdown-content .option {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+
+    #customer_sel + .selectize-control.multi .item {
+      background-color: #e0e0e0;
+      margin-right: 5px;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+    #item2 + .selectize-control {
+      width: 80px; 
+    }
+
+
+    #item2 + .selectize-control .selectize-input {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      height: 50px;
+    }
+
+
+    #item2 + .selectize-control .selectize-dropdown {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+
+    #item2 + .selectize-control .selectize-dropdown-content .option {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+
+    #item2 + .selectize-control.multi .item {
+      background-color: #e0e0e0;
+      margin-right: 5px;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
 </style>
 
 
@@ -98,6 +163,15 @@
   $(document).ready(function () {
     // Initialize Selectize on the item dropdown
     $('#item1').selectize({
+      
+      sortField: 'value', // Sort the items by their text content
+      
+    })
+
+  });
+  $(document).ready(function () {
+    // Initialize Selectize on the item dropdown
+    $('#customer_sel').selectize({
       
       sortField: 'value', // Sort the items by their text content
       
@@ -2202,7 +2276,8 @@
   }
 
 
-  {% comment %} $('#add-another-line').click(function () {
+  {% comment %} 
+  $('#add-another-line').click(function () {
     rowCount++; // Increment row counter
     console.log()
     var newRow = `
@@ -2229,11 +2304,16 @@
           </td>
       </tr>`;
     $('#retainer-table tbody').append(newRow);
+        
+            // Initialize Selectize for the newly added item dropdown
+            initializeSelectize(`#item${RowCount}`);
+        });
 
     // Add event listeners to the quantity and rate inputs in the newly added row
     $('#qty' + rowCount).on('input', handleInput);
     $('#rate' + rowCount).on('input', handleInput);
-  }); {% endcomment %}
+  });
+   {% endcomment %}
 
 
   // Add event listeners to the quantity and rate inputs
