@@ -121,12 +121,16 @@
       padding: 2px 6px;
     }
 
-    #item2 + .selectize-control {
-      width: 80px; 
+
+
+
+    
+    #item1 + .selectize-control {
+      width: 120px; 
     }
 
 
-    #item2 + .selectize-control .selectize-input {
+    #item1 + .selectize-control .selectize-input {
       border: 1px solid #ccc;
       border-radius: 4px;
       padding: 8px;
@@ -134,20 +138,20 @@
     }
 
 
-    #item2 + .selectize-control .selectize-dropdown {
+    #item1 + .selectize-control .selectize-dropdown {
       border: 1px solid #ccc;
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
 
-    #item2 + .selectize-control .selectize-dropdown-content .option {
+    #item1 + .selectize-control .selectize-dropdown-content .option {
       padding: 8px;
       cursor: pointer;
     }
 
 
-    #item2 + .selectize-control.multi .item {
+    #item1 + .selectize-control.multi .item {
       background-color: #e0e0e0;
       margin-right: 5px;
       border-radius: 4px;
@@ -163,6 +167,33 @@
   $(document).ready(function () {
     // Initialize Selectize on the item dropdown
     $('#item1').selectize({
+      
+      sortField: 'value', // Sort the items by their text content
+      
+    })
+
+  });
+  // $(document).ready(function () {
+  //   // Initialize Selectize on the item dropdown
+  //   $('#item2').selectize({
+      
+  //     sortField: 'value', // Sort the items by their text content
+      
+  //   })
+
+  // });
+  $(document).ready(function () {
+    // Initialize Selectize on the item dropdown
+    $('#item3').selectize({
+      
+      sortField: 'value', // Sort the items by their text content
+      
+    })
+
+  });
+  $(document).ready(function () {
+    // Initialize Selectize on the item dropdown
+    $('#item4').selectize({
       
       sortField: 'value', // Sort the items by their text content
       
@@ -403,7 +434,7 @@
             </thead>
             <tbody id="tbody-table">
               <tr class="item-row" id="row1">
-                <td style="border: none;width:5px;" class="index-number">1</td>
+                <td style="border: none;width:3px;" class="index-number">1</td>
                 <td>
                   <select class='form-control border-0 bg-transparent text-white item_select itm' name='item[]'
                     id='item1' onchange="itemfunction(this.id)">
@@ -414,7 +445,7 @@
                   </select>
                 </td>
                 <td><input type="text" class="form-control bg-transparent border-0 bg-light text-light border-0"
-                    name="description[]" style="width: 100px;" required id="description1" /></td>
+                    name="description[]" style="width: 60px;" required id="description1" /></td>
                 <td><input type="number" name="quantity[]" id="qty1"
                     class="form-control bg-transparent text-white border-0 text-right qty"
                     style="border: none;width: 100px;" onchange="calculateAmount(1)">
@@ -2471,7 +2502,7 @@
       itemCounter++;
       var newRow =`
       <tr class="item-row" id="row1">
-      <td class="index-number">${itemCounter}</td>
+      <td class="index-number"style="width: 4px;">${itemCounter}</td>
 
       <td>
         <select class='form-control border-0 bg-transparent text-white item_select itm' name='item[]'
@@ -2483,13 +2514,13 @@
         </select>
       </td>
       <td><input type="text" class="form-control bg-transparent border-0 bg-light text-light border-0"
-          name="description[]" style="width: 350px;" required id="description1" /></td>
+          name="description[]" style="width: 60px;" required id="description1" /></td>
       <td><input type="number" name="quantity[]" id="qty1"
           class="form-control bg-transparent text-white border-0 text-right qty"
-          style="border: none;width: 100px;" onchange="calculateAmount(1)">
+          style="border: none;width: 60px;" onchange="calculateAmount(1)">
       </td>
       <td><input type="number" class="rate form-control bg-transparent border-0 bg-light text-light border-0"
-          name="rate[]" style="width: 150px;" step="0.01" required id="rate1" onchange="calculateAmount(1)"
+          name="rate[]" style="width: 80px;" step="0.01" required id="rate1" onchange="calculateAmount(1)"
           readonly /></td>
       <td><input type="number"
           class="amount form-control bg-transparent border-0 bg-light text-light border-0" name="amount[]"

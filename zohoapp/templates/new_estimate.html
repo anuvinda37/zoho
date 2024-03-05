@@ -243,6 +243,77 @@
       border-radius: 4px;
       padding: 2px 6px;
     }
+    
+
+
+
+
+
+
+    #itemm2 + .selectize-control {
+      width: 80px; 
+    }
+
+    #itemm2 + .selectize-control .selectize-input {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      height: 50px;
+    }
+
+
+    #itemm2 + .selectize-control .selectize-dropdown {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+
+    #itemm2 + .selectize-control .selectize-dropdown-content .option {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+
+    #itemm2 + .selectize-control.multi .item {
+      background-color: #e0e0e0;
+      margin-right: 5px;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+
+    #itemm3 + .selectize-control {
+      width: 80px; 
+    }
+
+    #itemm3 + .selectize-control .selectize-input {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      height: 50px;
+    }
+
+
+    #itemm3 + .selectize-control .selectize-dropdown {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+
+    #itemm3 + .selectize-control .selectize-dropdown-content .option {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+
+    #itemm3 + .selectize-control.multi .item {
+      background-color: #e0e0e0;
+      margin-right: 5px;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
     .modal{
           z-index: 9999;
           overflow: scroll;
@@ -662,9 +733,10 @@ function calc() {
                                 <tr id='row1'>
                                   <td class="text-light">1</td>
                                     <td style="width: 15%;">
-                                        <div class='form-group'><select
+                                        <div class='form-group'>
+                                          <select
                                                 class=' bg-transparent text-light border-0 item_select itm'
-                                                name='item[]' id='item1'>
+                                                name='item[]' id='item1' onchange="getItemDetails1(this.id)">
                                                 <option class='text-dark'>Select</option>
                                                 {% for i in items %}
                                                 <option class="text-dark" value="{{i.Name}}" data-hsn="{{i.HSN}}" data-rate="{{i.Rate}}" >{{i.Name}}</option>
@@ -692,7 +764,7 @@ function calc() {
                                             value='0.00'>
                                     </td>
                                     <td class='text-right' style="width: 15%;"> 
-                                        <select name='tax[]' id='tax' onchange="Taxchange(this)"
+                                        <select name='tax[]' id='tax1' onchange="Taxchange(this)"
                                             class=' bg-transparent text-light text-right border-0 tax' style="width: 85%;" >
                                             <!-- <option value="" selected>select</option> -->
 
@@ -724,7 +796,7 @@ function calc() {
                             <!-- <th>&nbsp;Available Stock: <span id="available_stock"></span></th> -->
                         </table>
                         <button type="button" class="btn btn-sm text-white tab1" style="background-color: rgb(210, 132, 30) ;"
-                            id="add-row" onclick="cust_mail1()" title="add row"><i class="fa-solid  fa fa-plus rounded"
+                            id="add-row" title="add row"><i class="fa-solid  fa fa-plus rounded"
                             style="color: white; background-color: rgb(210, 132, 30);height: 20px;"></i></button>
                     </div>
                     
@@ -819,9 +891,10 @@ function calc() {
                 <tr id='row1'>
                   <td class="text-light">1</td>
                   <td style="width: 15%;">
-                        <div class='form-group'><select
+                        <div class='form-group'>
+                          <select
                                 class=' bg-transparent text-light border-0 item_selectt itmm'
-                                name='itemm[]' id='itemm1'>
+                                name='itemm[]' id='itemm1' onchange="getItemDetails2(this.id)">
                                 <option class='text-dark'>Select Items</option>
                                 {% for i in items %}
                                 <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
@@ -846,7 +919,7 @@ function calc() {
                             value='0.00'>
                     </td>
                     <td class='text-right' style="width: 15%;"> 
-                        <select name='taxx[]' id='taxx'
+                        <select name='taxx[]' id='taxx1'
                             class='bg-transparent  text-light border-0 taxx'  >
                             <option value="" selected>select</option>
 
@@ -861,7 +934,7 @@ function calc() {
                             
                             
                         </select>
-                        <label id="ml1" class="text-warning" style="display: block;">Invalid Tax Rate*</label>
+                        <!-- <label id="ml1" class="text-warning" style="display: block;">Invalid Tax Rate*</label> -->
                     </td>
 
                     <td style="display: none;">
@@ -882,7 +955,7 @@ function calc() {
             <!-- <th>&nbsp;Available Stock: <span id="available_stockk"></span></th> -->
         </table>
         <button type="button" class="btn btn-sm text-white tab2" style="background-color: rgb(210, 132, 30);display: none;"
-            id="add-roww" onclick="cust_mail1()"><i class="fa-solid  fa fa-plus rounded"
+            id="add-roww" ><i class="fa-solid  fa fa-plus rounded"
             style="color: white; background-color: rgb(210, 132, 30);height: 20px;"></i></button>
     </div>
     
@@ -2571,53 +2644,73 @@ function addressSame(){
             var newRow = $(`
             <tr id='row${RowCount}'>
               <td class="text-light">${RowCount}</td>
-                <td>
+                <td style="width: 15%;">
                     <div class='form-group'>
-                        <select
-                            class='bg-transparent text-light border-0 item_select' name='item[]'
-                            id='item${RowCount}'>
+                      <select
+                            class=' bg-transparent text-light border-0 item_select itm'
+                            name='item[]' id='item${RowCount}' onchange="getItemDetails1(this.id)">
                             <option class='text-dark'>Select</option>
                             {% for i in items %}
-                            <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
+                            <option class="text-dark" value="{{i.Name}}" data-hsn="{{i.HSN}}" data-rate="{{i.Rate}}" >{{i.Name}}</option>
+
                             {% endfor %}
                         </select>
                     </div>
                 </td>
-                <td class='text-right '><input type='number' id='hsn${RowCount}'
-                        class='form_control bg-transparent border-0 text-light text-right hsn' name='hsn[]' style="width:85%" value='0.00' readonly>
+                <td class='text-right' style="width: 16%;"><input type='number' id='hsn${RowCount}'
+                  class='form-control bg-transparent border-0 text-light text-right hsn' name='hsn[]'
+                  value='0' readonly>
                 </td>
-                <td class='text-right '><input type='number' id='qty${RowCount}'
-                        class='form_control bg-transparent border-0 text-light text-right qty' name='quantity[]' style="width:85%" value='0.00' >
+
+                <td class='text-right' style="width: 15%;"><input type='number' id='qty${RowCount}'
+                        class='form-control bg-transparent border-0 text-light text-right qty' name='quantity[]'
+                        value='0'>
                 </td>
-                <td class='text-right '><input type='number' id='rate${RowCount}'
-                        class='form_control bg-transparent border-0 text-light text-right rate' name='rate[]' value='0.00' style="width:85%"></td>
-                <td class='text-right'><input type='number' id='discount${RowCount}'
-                        class='form_control bg-transparent border-0 text-light text-right discount' name='discount[]' value='0.00' style="width:85%">
+                
+                <td class='text-right' style="width: 15%;"><input type='number' id='rate${RowCount}'
+                        class='form-control bg-transparent border-0 text-light text-right rate' name='rate[]'
+                        value='0.00'>
                 </td>
-                <td class='text-right'> <select name='tax[]' id='tax${RowCount}' data-id='${RowCount}' onchange="Taxchange(this)"
-                        class="bg-transparent text-light text-right border-0 tax" style="width:85%">
-                        <option value="" selected>select</option>
-                        <option value=0 class="text-dark">0% GST</option>
-                        <option value=3 class="text-dark">3% GST</option>
-                        <option value=5 class="text-dark">5% GST</option>
-                        <option value=12 class="text-dark">12% GST</option>
-                        <option value=18 class="text-dark">18% GST</option>
-                        <option value=28 class="text-dark">28% GST</option>
-                       
+                <td class='text-right' style="width: 15%;"><input type='number' id='discount${RowCount}'
+                        class='form-control bg-transparent border-0 text-light text-right discount' name='discount[]'
+                        value='0.00'>
+                </td>
+                <td class='text-right' style="width: 15%;"> 
+                    <select name='tax[]' id='tax${RowCount}' onchange="Taxchange(this)"
+                        class=' bg-transparent text-light text-right border-0 tax' style="width: 85%;" >
+                        <!-- <option value="" selected>select</option> -->
+
+                        <option value=0 class="opt1 text-dark">0% GST</option>
+                        <option value=3 class="opt1 text-dark">3% GST</option>
+                        <option value=5 class="opt1 text-dark">5% GST</option>
+                        <option value=12 class="opt1 text-dark" disabled>12% GST</option>
+                        <option value=18 class="opt1 text-dark">18% GST</option>
+                        <option value=28 class="opt1 text-dark">28% GST</option>  
                     </select>
-                    <label id="ml${RowCount}" class="text-warning" style="display: none;">Invalid Tax Rate*</label>
-                    </td>
+                </td>
+
                 <td style="display: none;">
-                    <input type="text" name='taxamount1' id="taxamount${RowCount}"  class="form-control bg-transparent border-0 text-light text-right taxamount" />
-                            </td>
-                <td class='text-right'><input type='number' id='amount${RowCount}'
-                        class='bg-transparent border-0 text-light text-right amount' style="width:85%" name='amount[]' value='0.00'></td>
-                <td class='text-center'><button type='button' id='del_btn${RowCount}'
+                    <input type="number" name='taxamount[]' id="taxamount${RowCount}"
+                        class="form-control bg-transparent border-0 text-light text-right taxamount" />
+                </td>
+                <td class='text-right' style="width: 15%;"><input type='number' id='amount${RowCount}'
+                        class='bg-transparent border-0 text-light text-right amount' name='amount[]'
+                        value='0.00' style="width: 85%;"></td>
+                <td class='text-center'>
+                  <button type='button' id='del_btn${RowCount}'
                         class='btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row'
                         style='width:30px'><i class='fa fa-times'></i></button>
-                        <button type='button' class='btn btn-transparent text-primary btn-sm btn-outline-primary rounded-circle clone-row' data-row=1 style='width:30px'><i class="fa fa-clone"></i></button>
-                        </td>
-            </tr>`);
+                            <button type='button' class='btn btn-transparent text-primary btn-sm btn-outline-primary rounded-circle clone-row' data-row=${RowCount} style='width:30px'><i class="fa fa-clone"></i>
+                            </button>
+                          </td>
+            </tr>
+
+
+
+
+           
+            `
+            );
             $('#item_table').append(newRow);
 
             // Initialize Selectize for the newly added item dropdown
@@ -2647,7 +2740,7 @@ function addressSame(){
                     <div class='form-group'>
                         <select
                             class='bg-transparent text-light border-0 item_selectt' name='itemm[]'
-                            id='itemm${RowCountt}'>
+                            id='itemm${RowCountt}' onchange="getItemDetails2(this.id)>
                             <option class='text-dark'>Select Items</option>
                             {% for i in items %}
                             <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
@@ -2849,29 +2942,47 @@ $.ajax({
 });        
 });
 
-function reloadCustomer() {
+// function reloadCustomer() {
 
-$.ajax({ 
-  url: "{% url 'customer_dropdown_estimate' %}",
-  type: "GET",
-  dataType: "json",
-  data: $(this).serialize(),
-  csrfmiddlewaretoken: '{{ csrf_token }}',
+// $.ajax({ 
+//   url: "{% url 'customer_dropdown_estimate' %}",
+//   type: "GET",
+//   dataType: "json",
+//   data: $(this).serialize(),
+//   csrfmiddlewaretoken: '{{ csrf_token }}',
 
-  success: function(data) {
-    var dropdown = $('#customer_sel');
-  +   dropdown.empty();
-    $.each(data, function(key, value) {
+//   success: function(data) {
+//     var dropdown = $('#customer_sel');
+//   +   dropdown.empty();
+//     $.each(data, function(key, value) {
         
-        dropdown.append($('<option></option>').attr('value', key).text(value[1]).val(key));
-    });
-  },
-  error: function(xhr, status, error) {
-  // console.error(xhr.responseText);
-  }
-});
-}
+//         dropdown.append($('<option></option>').attr('value', key).text(value[1]).val(key));
+//     });
+//   },
+//   error: function(xhr, status, error) {
+//   // console.error(xhr.responseText);
+//   }
+// });
+// }
 
+function reloadCustomer() {
+    $.ajax({
+        url: "{% url 'customer_dropdown_estimate' %}",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            var selectize = $('#customer_sel')[0].selectize;
+            selectize.clearOptions();
+            for (var key in data) {
+                selectize.addOption({value: key, text: data[key][0]});
+            }
+            selectize.refreshOptions(false);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
 
 
 
@@ -3302,819 +3413,910 @@ function reloadUnit() {
            
 
 <script>
+
+  function extractTax(tax){
+    var inputString = tax;
+
+    var match = tax.match(/\[(\d+)%\]/);
+
+    if (match) {
+
+      var percentageValue = match[1];
+      percentageValue = parseInt(percentageValue, 10);
+    }
+    return percentageValue;
+  }
+
+  function getItemDetails1(id){
+    n = id.slice(4)
+    console.log(n);
+    var select = $("#item"+n).val();
+   
+    console.log(select)
+    customer = $('#customer_sel').val();
+    // console.log(select);
+    // console.log(customer);
+    
+    $.ajax({
+        type: "GET",
+        url: "{% url 'itemdata_challan' %}",
+        data: {
+            id: select,
+            cust: customer
+        },
+        success: function (response) {
+          console.log(response);
+            // console.log(response)
+            data = response.rate
+            data1 = extractTax(response.gst)
+            data2 = extractTax(response.igst)
+            data3 = response.pos
+            data4=response.hsn
+            document.getElementById('rate'+n).value = data
+            // console.log("helloooooooooooooooooooooooooo");
+
+            document.getElementById('hsn'+n).value = data4
+            // console.log("helloooooooooooooooooooooooooo");
+
+            console.log(data1,'hello');//GST
+            console.log(data2,'hello2');//IGST
+            document.getElementById('tax'+n).value = data1;
+            
+        }
+    });
+  }
+
+  function getItemDetails2(id){
+    n = id.slice(5)
+    var select = $("#itemm"+n).val();
+    
+    customer = $('#customer_sel').val();
+    console.log(n);
+    console.log(select)
+    
+    console.log('customer==',customer);
+    
+    $.ajax({
+        type: "GET",
+        url: "{% url 'itemdata_challan' %}",
+        data: {
+            id: select,
+            cust: customer
+        },
+        success: function (response) {
+          console.log(response);
+            // console.log(response)
+            data = response.rate
+            data1 = extractTax(response.gst)
+            data2 = extractTax(response.igst)
+            data3 = response.pos
+            data4=response.hsn
+            document.getElementById('ratee'+n).value = data
+            // console.log("helloooooooooooooooooooooooooo");
+
+            document.getElementById('hsnn'+n).value = data4
+            // console.log("helloooooooooooooooooooooooooo");
+
+            console.log(data1,'hello');//GST
+            console.log(data2,'hello2');//IGST
+            document.getElementById('taxx'+n).value = data2;
+            
+        }
+    });
+  }
    
   $(document).ready(function () {
     
       var roinc = 0
       // console.log("ajax");
       // var place = document.getElementById('pos').value;
-      $(document).on('change', '#item1', function () {
-          select = $('#item1').val();
-          console.log(select)
-          customer = $('#customer_sel').val();
-          // console.log(select);
-          // console.log(customer);
+      // $(document).on('change', '#item1', function () {
+      //     select = $('#item1').val();
+      //     console.log(select)
+      //     customer = $('#customer_sel').val();
+      //     // console.log(select);
+      //     // console.log(customer);
           
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  // console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-                  document.getElementById('rate1').value = data
-                  // console.log("helloooooooooooooooooooooooooo");
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             // console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+      //             document.getElementById('rate1').value = data
+      //             // console.log("helloooooooooooooooooooooooooo");
 
-                  document.getElementById('hsn1').value = data4
-                  // console.log("helloooooooooooooooooooooooooo");
+      //             document.getElementById('hsn1').value = data4
+      //             // console.log("helloooooooooooooooooooooooooo");
 
-                  console.log(data1,'hello');//GST
-                  console.log(data2,'hello2');//IGST
-                  var taxselect=document.getElementById('tax')
-                  var newoption=document.createElement('option')
-                  newoption.text=data2
-                  newoption.value=data2
-                  newoption.selected=true
-                  for(var i=0; i<taxselect.options.length;i++){
-                    taxselect.options[i].disabled=true
-                  }
-                  taxselect.add(newoption)
+      //             console.log(data1,'hello');//GST
+      //             console.log(data2,'hello2');//IGST
+      //             var taxselect=document.getElementById('tax')
+      //             var newoption=document.createElement('option')
+      //             newoption.text=data2
+      //             newoption.value=data2
+      //             newoption.selected=true
+      //             // for(var i=0; i<taxselect.options.length;i++){
+      //             //   taxselect.options[i].disabled=true
+      //             // }
+      //             taxselect.add(newoption)
 
-                  newoption.text=data1
-                  newoption.value=data1
-                  newoption.selected=true
-                  for(var i=0; i<taxselect.options.length;i++){
-                    taxselect.options[i].disabled=true
-                  }
-                  taxselect.add(newoption)
+      //             newoption.text=data1
+      //             newoption.value=data1
+      //             newoption.selected=true
+      //             // for(var i=0; i<taxselect.options.length;i++){
+      //             //   taxselect.options[i].disabled=true
+      //             // }
+      //             taxselect.add(newoption)
 
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst1').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst1').value = data1
-                  }
-                  document.getElementById('tigst1').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst1').value = data2
-              }
-          });
-      });
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst1').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst1').value = data1
+      //             }
+      //             document.getElementById('tigst1').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst1').value = data2
+      //         }
+      //     });
+      // });
       // console.log('pos:'+place_of_supply);
 
-      $(document).on('click', '#item2', function () {
-          select = $('#item2').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
+      // $(document).on('click', '#item2', function () {
+      //     select = $('#item2').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
 
-                  document.getElementById('rate2').value = data
+      //             document.getElementById('rate2').value = data
 
-                  document.getElementById('hsn2').value = data4
+      //             document.getElementById('hsn2').value = data4
 
 
-                  console.log(typeof data1,'hello');
-                  console.log(data2,'hello2');
-                  var number=data1.split(/\s+/)
-                  console.log(number,'Good afternoon')
-                  var gstvalue = data1.match(/\[(\d+)%\]/)[1];
+      //             console.log(typeof data1,'hello');
+      //             console.log(data2,'hello2');
+      //             var number=data1.split(/\s+/)
+      //             console.log(number,'Good afternoon')
+      //             var gstvalue = data1.match(/\[(\d+)%\]/)[1];
                   
-                  var taxselect=document.getElementById('tax2')
+      //             var taxselect=document.getElementById('tax2')
                  
-                  for(var i=0; i<taxselect.options.length;i++){
-                   if( taxselect.options[i].value===gstvalue){
-                    taxselect.options[i].selected=true
-                    taxselect.options[i].setAttribute('data-danger','1')
-                    console.log('rs')
-                   }
-                   else{
-                    taxselect.options[i].setAttribute('data-danger','0')
-                   }
-                  }
-                  taxselect.add(newoption)
-
-                  newoption.text=data1
-                  newoption.value=data1
-                  newoption.selected=true
-                  for(var i=0; i<taxselect.options.length;i++){
-                    taxselect.options[i].disabled=true
-                  }
-                  taxselect.add(newoption)
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst2').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst2').value = data1
-                  }
-                  document.getElementById('tigst2').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst2').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item3', function () {
-          select = $('#item3').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate3').value = data
-
-                  document.getElementById('hsn3').value = data4
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst3').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst3').value = data1
-                  }
-                  document.getElementById('tigst3').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst3').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item4', function () {
-          select = $('#item4').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate4').value = data
-
-                  document.getElementById('hsn4').value = data4
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst4').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst4').value = data1
-                  }
-                  document.getElementById('tigst4').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst4').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item5', function () {
-          select = $('#item5').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate5').value = data
-
-                  document.getElementById('hsn5').value = data4
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst5').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst5').value = data1
-                  }
-                  document.getElementById('tigst5').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst5').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item6', function () {
-          select = $('#item6').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate6').value = data
-
-                  document.getElementById('hsn6').value = data4
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst6').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst6').value = data1
-                  }
-                  document.getElementById('tigst6').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst6').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item7', function () {
-          select = $('#item7').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate7').value = data
-
-                  document.getElementById('hsn7').value = data4
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst7').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst7').value = data1
-                  }
-                  document.getElementById('tigst7').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst7').value = data2
-
-              }
-          });
-
-      });                 
-
-      $(document).on('click', '#item8', function () {
-          select = $('#item8').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate8').value = data
-
-                  document.getElementById('hsn8').value = data4
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst8').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst8').value = data1
-                  }
-                  document.getElementById('tigst8').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst8').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item9', function () {
-          select = $('#item9').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate9').value = data
-
-                  document.getElementById('hsn9').value = data4
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst9').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst9').value = data1
-                  }
-                  document.getElementById('tigst9').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst9').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item10', function () {
-          select = $('#item10').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate10').value = data
-                  document.getElementById('hsn10').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst10').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst10').value = data1
-                  }
-                  document.getElementById('tigst10').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst10').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item11', function () {
-          select = $('#item11').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate11').value = data
-                  document.getElementById('hsn11').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst11').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst11').value = data1
-                  }
-                  document.getElementById('tigst11').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst11').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item12', function () {
-          select = $('#item12').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate12').value = data
-                  document.getElementById('hsn12').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst12').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst12').value = data1
-                  }
-                  document.getElementById('tigst12').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst12').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item13', function () {
-          select = $('#item13').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate13').value = data
-                  document.getElementById('hsn13').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst13').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst13').value = data1
-                  }
-                  document.getElementById('tigst13').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst13').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item14', function () {
-          select = $('#item14').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate14').value = data
-                  document.getElementById('hsn14').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst14').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst14').value = data1
-                  }
-                  document.getElementById('tigst14').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst14').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item15', function () {
-          select = $('#item15').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate15').value = data
-                  document.getElementById('hsn15').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst15').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst15').value = data1
-                  }
-                  document.getElementById('tigst15').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst15').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item16', function () {
-          select = $('#item16').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate16').value = data
-                  document.getElementById('hsn16').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst16').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst16').value = data1
-                  }
-                  document.getElementById('tigst16').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst16').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item17', function () {
-          select = $('#item17').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate17').value = data
-                  document.getElementById('hsn17').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst17').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst17').value = data1
-                  }
-                  document.getElementById('tigst17').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst17').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item18', function () {
-          select = $('#item18').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate18').value = data
-                  document.getElementById('hsn18').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst18').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst18').value = data1
-                  }
-                  document.getElementById('tigst18').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst18').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item19', function () {
-          select = $('#item19').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate19').value = data
-                  document.getElementById('hsn19').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst19').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst19').value = data1
-                  }
-                  document.getElementById('tigst19').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst19').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item20', function () {
-          select = $('#item20').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate20').value = data
-                  document.getElementById('hsn20').value = data4
-
-
-                  if (data3 == '{{ company.state }}') {
-                      document.getElementById('tgst20').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst20').value = data1
-                  }
-                  document.getElementById('tigst20').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst20').value = data2
-
-              }
-          });
-
-      });
-
-      $(document).on('click', '#item21', function () {
-          select = $('#item21').val();
-          customer = $('#customer_sel').val();
-          console.log(select);
-          console.log(customer);
-          $.ajax({
-              type: "GET",
-              url: "{% url 'itemdata_challan' %}",
-              data: {
-                  id: select,
-                  cust: customer
-              },
-              success: function (response) 
-              {
-                  console.log(response)
-                  data = response.rate
-                  data1 = response.gst
-                  data2 = response.igst
-                  data3 = response.pos
-                  data4=response.hsn
-
-                  document.getElementById('rate21').value = data
-                  document.getElementById('hsn21').value = data4
-
-                  if (data3 == '{{ company.state }}') 
-                  {
-                      document.getElementById('tgst21').innerHTML = data1 + ' % GST';
-                      document.getElementById('tgst21').value = data1
-                  }
-                  document.getElementById('tigst21').innerHTML = data2 + ' % IGST';
-                  document.getElementById('tigst21').value = data2
-
-              }
-          });
-
-      });
+      //             for(var i=0; i<taxselect.options.length;i++){
+      //              if( taxselect.options[i].value===gstvalue){
+      //               taxselect.options[i].selected=true
+      //               taxselect.options[i].setAttribute('data-danger','1')
+      //               console.log('rs')
+      //              }
+      //              else{
+      //               taxselect.options[i].setAttribute('data-danger','0')
+      //              }
+      //             }
+      //             taxselect.add(newoption)
+
+      //             newoption.text=data1
+      //             newoption.value=data1
+      //             newoption.selected=true
+      //             for(var i=0; i<taxselect.options.length;i++){
+      //               taxselect.options[i].disabled=true
+      //             }
+      //             taxselect.add(newoption)
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst2').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst2').value = data1
+      //             }
+      //             document.getElementById('tigst2').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst2').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item3', function () {
+      //     select = $('#item3').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate3').value = data
+
+      //             document.getElementById('hsn3').value = data4
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst3').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst3').value = data1
+      //             }
+      //             document.getElementById('tigst3').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst3').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item4', function () {
+      //     select = $('#item4').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate4').value = data
+
+      //             document.getElementById('hsn4').value = data4
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst4').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst4').value = data1
+      //             }
+      //             document.getElementById('tigst4').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst4').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item5', function () {
+      //     select = $('#item5').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate5').value = data
+
+      //             document.getElementById('hsn5').value = data4
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst5').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst5').value = data1
+      //             }
+      //             document.getElementById('tigst5').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst5').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item6', function () {
+      //     select = $('#item6').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate6').value = data
+
+      //             document.getElementById('hsn6').value = data4
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst6').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst6').value = data1
+      //             }
+      //             document.getElementById('tigst6').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst6').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item7', function () {
+      //     select = $('#item7').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate7').value = data
+
+      //             document.getElementById('hsn7').value = data4
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst7').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst7').value = data1
+      //             }
+      //             document.getElementById('tigst7').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst7').value = data2
+
+      //         }
+      //     });
+
+      // });                 
+
+      // $(document).on('click', '#item8', function () {
+      //     select = $('#item8').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate8').value = data
+
+      //             document.getElementById('hsn8').value = data4
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst8').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst8').value = data1
+      //             }
+      //             document.getElementById('tigst8').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst8').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item9', function () {
+      //     select = $('#item9').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate9').value = data
+
+      //             document.getElementById('hsn9').value = data4
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst9').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst9').value = data1
+      //             }
+      //             document.getElementById('tigst9').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst9').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item10', function () {
+      //     select = $('#item10').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate10').value = data
+      //             document.getElementById('hsn10').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst10').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst10').value = data1
+      //             }
+      //             document.getElementById('tigst10').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst10').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item11', function () {
+      //     select = $('#item11').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate11').value = data
+      //             document.getElementById('hsn11').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst11').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst11').value = data1
+      //             }
+      //             document.getElementById('tigst11').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst11').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item12', function () {
+      //     select = $('#item12').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate12').value = data
+      //             document.getElementById('hsn12').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst12').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst12').value = data1
+      //             }
+      //             document.getElementById('tigst12').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst12').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item13', function () {
+      //     select = $('#item13').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate13').value = data
+      //             document.getElementById('hsn13').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst13').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst13').value = data1
+      //             }
+      //             document.getElementById('tigst13').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst13').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item14', function () {
+      //     select = $('#item14').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate14').value = data
+      //             document.getElementById('hsn14').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst14').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst14').value = data1
+      //             }
+      //             document.getElementById('tigst14').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst14').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item15', function () {
+      //     select = $('#item15').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate15').value = data
+      //             document.getElementById('hsn15').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst15').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst15').value = data1
+      //             }
+      //             document.getElementById('tigst15').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst15').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item16', function () {
+      //     select = $('#item16').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate16').value = data
+      //             document.getElementById('hsn16').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst16').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst16').value = data1
+      //             }
+      //             document.getElementById('tigst16').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst16').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item17', function () {
+      //     select = $('#item17').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate17').value = data
+      //             document.getElementById('hsn17').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst17').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst17').value = data1
+      //             }
+      //             document.getElementById('tigst17').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst17').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item18', function () {
+      //     select = $('#item18').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate18').value = data
+      //             document.getElementById('hsn18').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst18').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst18').value = data1
+      //             }
+      //             document.getElementById('tigst18').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst18').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item19', function () {
+      //     select = $('#item19').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate19').value = data
+      //             document.getElementById('hsn19').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst19').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst19').value = data1
+      //             }
+      //             document.getElementById('tigst19').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst19').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item20', function () {
+      //     select = $('#item20').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate20').value = data
+      //             document.getElementById('hsn20').value = data4
+
+
+      //             if (data3 == '{{ company.state }}') {
+      //                 document.getElementById('tgst20').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst20').value = data1
+      //             }
+      //             document.getElementById('tigst20').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst20').value = data2
+
+      //         }
+      //     });
+
+      // });
+
+      // $(document).on('click', '#item21', function () {
+      //     select = $('#item21').val();
+      //     customer = $('#customer_sel').val();
+      //     console.log(select);
+      //     console.log(customer);
+      //     $.ajax({
+      //         type: "GET",
+      //         url: "{% url 'itemdata_challan' %}",
+      //         data: {
+      //             id: select,
+      //             cust: customer
+      //         },
+      //         success: function (response) 
+      //         {
+      //             console.log(response)
+      //             data = response.rate
+      //             data1 = response.gst
+      //             data2 = response.igst
+      //             data3 = response.pos
+      //             data4=response.hsn
+
+      //             document.getElementById('rate21').value = data
+      //             document.getElementById('hsn21').value = data4
+
+      //             if (data3 == '{{ company.state }}') 
+      //             {
+      //                 document.getElementById('tgst21').innerHTML = data1 + ' % GST';
+      //                 document.getElementById('tgst21').value = data1
+      //             }
+      //             document.getElementById('tigst21').innerHTML = data2 + ' % IGST';
+      //             document.getElementById('tigst21').value = data2
+
+      //         }
+      //     });
+
+      // });
 
 
   });
@@ -4182,707 +4384,707 @@ function reloadUnit() {
             });
         });
         // console.log('pos:'+place_of_supply);
-        $(document).on('click', '#itemm2', function () {
-            select = $('#itemm2').val();
-            customer = $('#customer_sel').val();
-            // console.log(select);
-            // console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee2').value = data
-                    document.getElementById('hsnn2').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst2').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst2').value = data1
-                    }
-                    document.getElementById('tigst2').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst2').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm3', function () {
-            select = $('#itemm3').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee3').value = data
-                    document.getElementById('hsnn3').value = data4
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst3').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst3').value = data1
-                    }
-                    document.getElementById('tigst3').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst3').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm4', function () {
-            select = $('#itemm4').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee4').value = data
-                    document.getElementById('hsnn4').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst4').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst4').value = data1
-                    }
-                    document.getElementById('tigst4').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst4').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm5', function () {
-            select = $('#itemm5').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee5').value = data
-                    document.getElementById('hsnn5').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst5').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst5').value = data1
-                    }
-                    document.getElementById('tigst5').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst5').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm6', function () {
-            select = $('#itemm6').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-
-                    data4=response.hsn
-
-                    document.getElementById('ratee6').value = data
-                    document.getElementById('hsnn6').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst6').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst6').value = data1
-                    }
-                    document.getElementById('tigst6').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst6').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm7', function () {
-            select = $('#itemm7').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee7').value = data
-                    document.getElementById('hsnn7').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst7').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst7').value = data1
-                    }
-                    document.getElementById('tigst7').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst7').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm8', function () {
-            select = $('#itemm8').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee8').value = data
-                    document.getElementById('hsnn8').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst8').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst8').value = data1
-                    }
-                    document.getElementById('tigst8').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst8').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm9', function () {
-            select = $('#itemm9').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee9').value = data
-                    document.getElementById('hsnn9').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst9').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst9').value = data1
-                    }
-                    document.getElementById('tigst9').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst9').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm10', function () {
-            select = $('#itemm10').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee10').value = data
-                    document.getElementById('hsnn10').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst10').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst10').value = data1
-                    }
-                    document.getElementById('tigst10').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst10').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm11', function () {
-            select = $('#itemm11').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee11').value = data
-                    document.getElementById('hsnn11').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst11').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst11').value = data1
-                    }
-                    document.getElementById('tigst11').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst11').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm12', function () {
-            select = $('#itemm12').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee12').value = data
-                    document.getElementById('hsnn12').value = data4
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst12').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst12').value = data1
-                    }
-                    document.getElementById('tigst12').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst12').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm13', function () {
-            select = $('#itemm13').val();
-            customer = $('#customer_sel').val();
-            console.log(select);
-            console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee13').value = data
-                    document.getElementById('hsnn13').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst13').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst13').value = data1
-                    }
-                    document.getElementById('tigst13').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst13').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm14', function () {
-            select = $('#itemm14').val();
-            customer = $('#customer_sel').val();
-            // console.log(select);
-            // console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    // console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-document.getElementById('ratee14').value = data
-document.getElementById('hsnn14').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst14').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst14').value = data1
-                    }
-                    document.getElementById('tigst14').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst14').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm15', function () {
-            select = $('#itemm15').val();
-            customer = $('#customer_sel').val();
-            // console.log(select);
-            // console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    // console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee15').value = data
-                    document.getElementById('hsnn15').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst15').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst15').value = data1
-                    }
-                    document.getElementById('tigst15').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst15').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm16', function () {
-            select = $('#itemm16').val();
-            customer = $('#customer_sel').val();
-            // console.log(select);
-            // console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    // console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-document.getElementById('ratee16').value = data
-document.getElementById('hsnn16').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst16').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst16').value = data1
-                    }
-                    document.getElementById('tigst16').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst16').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm17', function () {
-            select = $('#itemm17').val();
-            customer = $('#customer_sel').val();
-            // console.log(select);
-            // console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    // console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee17').value = data
-                    document.getElementById('hsnn17').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst17').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst17').value = data1
-                    }
-                    document.getElementById('tigst17').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst17').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm18', function () {
-            select = $('#itemm18').val();
-            customer = $('#customer_sel').val();
-            // console.log(select);
-            // console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    // console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee18').value = data
-                    document.getElementById('hsnn18').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst18').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst18').value = data1
-                    }
-                    document.getElementById('tigst18').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst18').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm19', function () {
-            select = $('#itemm19').val();
-            customer = $('#customer_sel').val();
-            // console.log(select);
-            // console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    // console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee19').value = data
-                    document.getElementById('hsnn19').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst19').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst19').value = data1
-                    }
-                    document.getElementById('tigst19').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst19').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm20', function () {
-            select = $('#itemm20').val();
-            customer = $('#customer_sel').val();
-            // console.log(select);
-            // console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    // console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee20').value = data
-                    document.getElementById('hsnn20').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst20').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst20').value = data1
-                    }
-                    document.getElementById('tigst20').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst20').value = data2
-
-                }
-            });
-
-        });
-
-        $(document).on('click', '#itemm21', function () {
-            select = $('#itemm21').val();
-            customer = $('#customer_sel').val();
-            // console.log(select);
-            // console.log(customer);
-            $.ajax({
-                type: "GET",
-                url: "{% url 'itemdata_challan' %}",
-                data: {
-                    id: select,
-                    cust: customer
-                },
-                success: function (response) {
-                    // console.log(response)
-                    data = response.rate
-                    data1 = response.gst
-                    data2 = response.igst
-                    data3 = response.pos
-                    data4=response.hsn
-
-                    document.getElementById('ratee21').value = data
-                    document.getElementById('hsnn21').value = data4
-
-                    if (data3 == '{{ company.state }}') {
-                        document.getElementById('tgst21').innerHTML = data1 + ' % GST';
-                        document.getElementById('tgst21').value = data1
-                    }
-                    document.getElementById('tigst21').innerHTML = data2 + ' % IGST';
-                    document.getElementById('tigst21').value = data2
-
-                }
-            });
-
-        });
-
-
-    });
+        // $(document).on('click', '#itemm2', function () {
+        //     select = $('#itemm2').val();
+        //     customer = $('#customer_sel').val();
+        //     // console.log(select);
+        //     // console.log(customer);
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "{% url 'itemdata_challan' %}",
+        //         data: {
+        //             id: select,
+        //             cust: customer
+        //         },
+        //         success: function (response) {
+        //             console.log(response)
+        //             data = response.rate
+        //             data1 = response.gst
+        //             data2 = response.igst
+        //             data3 = response.pos
+        //             data4=response.hsn
+
+        //             document.getElementById('ratee2').value = data
+        //             document.getElementById('hsnn2').value = data4
+
+        //             if (data3 == '{{ company.state }}') {
+        //                 document.getElementById('tgst2').innerHTML = data1 + ' % GST';
+        //                 document.getElementById('tgst2').value = data1
+        //             }
+        //             document.getElementById('tigst2').innerHTML = data2 + ' % IGST';
+        //             document.getElementById('tigst2').value = data2
+
+        //         }
+        //     });
+
+        // });
+
+//         $(document).on('click', '#itemm3', function () {
+//             select = $('#itemm3').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee3').value = data
+//                     document.getElementById('hsnn3').value = data4
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst3').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst3').value = data1
+//                     }
+//                     document.getElementById('tigst3').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst3').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm4', function () {
+//             select = $('#itemm4').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee4').value = data
+//                     document.getElementById('hsnn4').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst4').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst4').value = data1
+//                     }
+//                     document.getElementById('tigst4').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst4').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm5', function () {
+//             select = $('#itemm5').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee5').value = data
+//                     document.getElementById('hsnn5').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst5').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst5').value = data1
+//                     }
+//                     document.getElementById('tigst5').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst5').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm6', function () {
+//             select = $('#itemm6').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee6').value = data
+//                     document.getElementById('hsnn6').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst6').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst6').value = data1
+//                     }
+//                     document.getElementById('tigst6').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst6').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm7', function () {
+//             select = $('#itemm7').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee7').value = data
+//                     document.getElementById('hsnn7').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst7').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst7').value = data1
+//                     }
+//                     document.getElementById('tigst7').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst7').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm8', function () {
+//             select = $('#itemm8').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee8').value = data
+//                     document.getElementById('hsnn8').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst8').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst8').value = data1
+//                     }
+//                     document.getElementById('tigst8').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst8').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm9', function () {
+//             select = $('#itemm9').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee9').value = data
+//                     document.getElementById('hsnn9').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst9').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst9').value = data1
+//                     }
+//                     document.getElementById('tigst9').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst9').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm10', function () {
+//             select = $('#itemm10').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee10').value = data
+//                     document.getElementById('hsnn10').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst10').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst10').value = data1
+//                     }
+//                     document.getElementById('tigst10').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst10').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm11', function () {
+//             select = $('#itemm11').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee11').value = data
+//                     document.getElementById('hsnn11').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst11').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst11').value = data1
+//                     }
+//                     document.getElementById('tigst11').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst11').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm12', function () {
+//             select = $('#itemm12').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee12').value = data
+//                     document.getElementById('hsnn12').value = data4
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst12').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst12').value = data1
+//                     }
+//                     document.getElementById('tigst12').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst12').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm13', function () {
+//             select = $('#itemm13').val();
+//             customer = $('#customer_sel').val();
+//             console.log(select);
+//             console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee13').value = data
+//                     document.getElementById('hsnn13').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst13').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst13').value = data1
+//                     }
+//                     document.getElementById('tigst13').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst13').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm14', function () {
+//             select = $('#itemm14').val();
+//             customer = $('#customer_sel').val();
+//             // console.log(select);
+//             // console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     // console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+// document.getElementById('ratee14').value = data
+// document.getElementById('hsnn14').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst14').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst14').value = data1
+//                     }
+//                     document.getElementById('tigst14').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst14').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm15', function () {
+//             select = $('#itemm15').val();
+//             customer = $('#customer_sel').val();
+//             // console.log(select);
+//             // console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     // console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee15').value = data
+//                     document.getElementById('hsnn15').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst15').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst15').value = data1
+//                     }
+//                     document.getElementById('tigst15').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst15').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm16', function () {
+//             select = $('#itemm16').val();
+//             customer = $('#customer_sel').val();
+//             // console.log(select);
+//             // console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     // console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+// document.getElementById('ratee16').value = data
+// document.getElementById('hsnn16').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst16').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst16').value = data1
+//                     }
+//                     document.getElementById('tigst16').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst16').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm17', function () {
+//             select = $('#itemm17').val();
+//             customer = $('#customer_sel').val();
+//             // console.log(select);
+//             // console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     // console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee17').value = data
+//                     document.getElementById('hsnn17').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst17').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst17').value = data1
+//                     }
+//                     document.getElementById('tigst17').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst17').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm18', function () {
+//             select = $('#itemm18').val();
+//             customer = $('#customer_sel').val();
+//             // console.log(select);
+//             // console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     // console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee18').value = data
+//                     document.getElementById('hsnn18').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst18').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst18').value = data1
+//                     }
+//                     document.getElementById('tigst18').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst18').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm19', function () {
+//             select = $('#itemm19').val();
+//             customer = $('#customer_sel').val();
+//             // console.log(select);
+//             // console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     // console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee19').value = data
+//                     document.getElementById('hsnn19').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst19').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst19').value = data1
+//                     }
+//                     document.getElementById('tigst19').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst19').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm20', function () {
+//             select = $('#itemm20').val();
+//             customer = $('#customer_sel').val();
+//             // console.log(select);
+//             // console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     // console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee20').value = data
+//                     document.getElementById('hsnn20').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst20').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst20').value = data1
+//                     }
+//                     document.getElementById('tigst20').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst20').value = data2
+
+//                 }
+//             });
+
+//         });
+
+//         $(document).on('click', '#itemm21', function () {
+//             select = $('#itemm21').val();
+//             customer = $('#customer_sel').val();
+//             // console.log(select);
+//             // console.log(customer);
+//             $.ajax({
+//                 type: "GET",
+//                 url: "{% url 'itemdata_challan' %}",
+//                 data: {
+//                     id: select,
+//                     cust: customer
+//                 },
+//                 success: function (response) {
+//                     // console.log(response)
+//                     data = response.rate
+//                     data1 = response.gst
+//                     data2 = response.igst
+//                     data3 = response.pos
+//                     data4=response.hsn
+
+//                     document.getElementById('ratee21').value = data
+//                     document.getElementById('hsnn21').value = data4
+
+//                     if (data3 == '{{ company.state }}') {
+//                         document.getElementById('tgst21').innerHTML = data1 + ' % GST';
+//                         document.getElementById('tgst21').value = data1
+//                     }
+//                     document.getElementById('tigst21').innerHTML = data2 + ' % IGST';
+//                     document.getElementById('tigst21').value = data2
+
+//                 }
+//             });
+
+//         });
+
+
+//     });
 
 
     $(document).on('keyup', '#estimate_number', function(){

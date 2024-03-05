@@ -1944,20 +1944,26 @@ def newestimate(request):
         est_last = ''  # Initialize est_last with a default value
         if Estimates.objects.filter(company = cmp1).exists():
             latest_bill = Estimates.objects.filter(company = cmp1).order_by('-reference').first()
+            if latest_bill:
             # print(latest_bill.estimate_no+1)
-            est_last=latest_bill.estimate_no
-            last_digit_index=len(est_last)
-            for i in range(len(est_last)-1,-1,-1):
-                if not est_last[i].isdigit():
-                    last_digit_index=i+1
-                    break
+                est_last=latest_bill.estimate_no
+                if est_last:
+                    last_digit_index=len(est_last)
+                    for i in range(len(est_last)-1,-1,-1):
+                        if not est_last[i].isdigit():
+                            last_digit_index=i+1
+                            break
 
-            prefix=est_last[:last_digit_index]
-            number=int(est_last[last_digit_index:])
-            number+=1
-            enumber=str(number).zfill(3)
-            next_estimate_number=f"{prefix}{enumber}"
-            print(next_estimate_number)
+                    prefix=est_last[:last_digit_index]
+                    number=int(est_last[last_digit_index:])
+                    number+=1
+                    enumber=str(number).zfill(3)
+                    next_estimate_number=f"{prefix}{enumber}"
+                    print(next_estimate_number)
+                else:
+                    # Handle the case where est_last is empty
+                    next_estimate_number = '1'  # Or any default value you want to use
+
 
             # latest_bill = Estimates.objects.filter(company = cmp1).values_list('reference',flat=True).last()
             # print("haiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii") 
@@ -19713,7 +19719,7 @@ def new_estimate_customer(request):
                         sphone1=sphone1,sfax=sfax,status=status,user=u)
         cust.save()
 
-        return HttpResponse({"message": "success"})
+        return HttpResponse({"message": "success", 'id':cust.id})
         
 
 def est_sort_by_estno(request):
